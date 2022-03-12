@@ -8,6 +8,7 @@ import (
 )
 
 func InsInit() {
+	//ChangeIP("cplasfwst_dc_1")
 	ctx, _ := chromedp.NewExecAllocator(
 		context.Background(),
 
@@ -19,6 +20,7 @@ func InsInit() {
 			chromedp.ProxyServer("gate1.rola.info:1009"),
 			chromedp.Flag("proxy-bypass-list", "<-loopback>"),
 			//chromedp.Flag("disable-web-security", true),
+			//chromedp.Flag("disable-popup-blocking", true),
 			//本机：Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/98.0.4758.102 Safari/537.36
 			//chromedp.UserAgent("Mozilla/5.0 (Linux; Android 6.0; Nexus 5 Build/MRA58N) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/98.0.4758.102 Mobile Safari/537.36"),
 			chromedp.UserAgent("Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/98.0.4758.102 Safari/537.36"),

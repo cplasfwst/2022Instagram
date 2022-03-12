@@ -3,6 +3,7 @@ package ins
 import (
 	"context"
 	"fmt"
+	"github.com/chromedp/cdproto/browser"
 	"github.com/chromedp/cdproto/fetch"
 	"github.com/chromedp/cdproto/network"
 	"github.com/chromedp/chromedp"
@@ -23,7 +24,12 @@ func MyTest(ctx context.Context) {
 
 func loginIns() chromedp.Tasks {
 	login := chromedp.Tasks{
+		//加载代理
 		fetch.Enable().WithHandleAuthRequests(true),
+		//加载通知权限
+		browser.GrantPermissions([]browser.PermissionType{
+			browser.PermissionTypeNotifications}),
+
 		//0,加载cookies
 		loadCookies(),
 
@@ -39,7 +45,14 @@ func loginIns() chromedp.Tasks {
 		chromedp.Click("#loginForm > div > div:nth-child(3) > button", chromedp.ByID),
 
 		//点击保存cookies
-		chromedp.Click("#react-root > section > main > div > div > div > section > div > button", chromedp.ByID),
+		chromedp.Click(`#react-root > section > main > div > div > div > section > div > button`, chromedp.ByID),
+
+		////允许通知权限
+		//browser.GrantPermissions([]browser.PermissionType{
+		//	browser.PermissionTypeNotifications}),
+
+		//打开通知
+		//chromedp.Click(`body > div.RnEpo.Yx5HN > div > div > div > div.mt3GC > button.aOOlW.bIiDR`,chromedp.ByQuery),
 
 		//保存登陆信息
 		saveCookies(),
@@ -51,8 +64,10 @@ func loginIns() chromedp.Tasks {
 // 保存Cookies
 func saveCookies() chromedp.ActionFunc {
 	return func(ctx context.Context) (err error) {
+		fmt.Println("进来了存储cookies")
 		// 等待二维码登陆
 		if err = chromedp.WaitVisible(`#react-root`, chromedp.ByID).Do(ctx); err != nil {
+			fmt.Println("等待二维码这里出错")
 			return
 		}
 
@@ -73,6 +88,7 @@ func saveCookies() chromedp.ActionFunc {
 		if err = ioutil.WriteFile("cookies.tmp", cookiesData, 0755); err != nil {
 			return
 		}
+		fmt.Println("保存cookies成功")
 		return
 	}
 }
@@ -100,7 +116,7 @@ func loadCookies() chromedp.ActionFunc {
 			return
 		}
 
-		fmt.Println("设置cookies成功")
+		fmt.Println("读取cookies成功")
 		// 设置cookies
 		return network.SetCookies(cookiesParams.Cookies).Do(ctx)
 	}
