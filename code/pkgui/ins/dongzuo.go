@@ -47,7 +47,7 @@ func loginIns() chromedp.Tasks {
 		//点击保存cookies
 		chromedp.Click(`#react-root > section > main > div > div > div > section > div > button`, chromedp.ByID),
 
-		////允许通知权限
+		//允许通知权限这个位置导致读取cookies出错
 		//browser.GrantPermissions([]browser.PermissionType{
 		//	browser.PermissionTypeNotifications}),
 
@@ -66,8 +66,8 @@ func saveCookies() chromedp.ActionFunc {
 	return func(ctx context.Context) (err error) {
 		fmt.Println("进来了存储cookies")
 		// 等待二维码登陆
-		if err = chromedp.WaitVisible(`#react-root`, chromedp.ByID).Do(ctx); err != nil {
-			fmt.Println("等待二维码这里出错")
+		if err = chromedp.WaitVisible(`#react-root > section > nav > div._8MQSO.Cx7Bp > div > div > div.ctQZg.KtFt3 > div > div:nth-child(1) > div > a > svg`, chromedp.ByID).Do(ctx); err != nil {
+			fmt.Println("等待二维码这里出错（保存cookies的前置条件）")
 			return
 		}
 
@@ -128,10 +128,20 @@ func checkLoginStatus() chromedp.ActionFunc {
 		if err = chromedp.Evaluate(`window.location.href`, &url).Do(ctx); err != nil {
 			return
 		}
-		if strings.Contains(url, "https://www.instagram.com/accounts/onetap/?next=%2F") {
+		//利用网址判断
+		//if strings.Contains(url, "https://www.instagram.com/accounts/onetap/?next=%2F") {
+		//	log.Println("已经使用cookies登陆lele")
+		//	chromedp.Stop()
+		//}
+		//利用网址等值判断
+		//fmt.Println(url)
+		if strings.EqualFold(url, "https://www.instagram.com/") {
 			log.Println("已经使用cookies登陆lele")
 			chromedp.Stop()
+		} else {
+			fmt.Println("cookies对比不相等")
 		}
+
 		return
 	}
 }
