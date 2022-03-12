@@ -45,7 +45,7 @@ func InsInit() {
 					_ = chromedp.Run(ctx,
 						fetch.ContinueWithAuth(ev.RequestID, &fetch.AuthChallengeResponse{
 							Response: fetch.AuthChallengeResponseResponseProvideCredentials,
-							Username: "cplasfwst_dc_22",
+							Username: "cplasfwst_dc_1",
 							Password: "xz5201314789",
 						}),
 						// Chrome will remember the credential for the current instance,

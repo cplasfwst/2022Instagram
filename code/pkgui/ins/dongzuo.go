@@ -33,8 +33,16 @@ func loginIns() chromedp.Tasks {
 		//2,检查是否登陆
 		checkLoginStatus(),
 
-		//
+		//3,如是没有登陆就输入账号密码并且登陆
+		chromedp.SendKeys("#loginForm > div > div:nth-child(1) > div > label > input", "79398080392", chromedp.ByID),
+		chromedp.SendKeys("#loginForm > div > div:nth-child(2) > div > label > input", "lisa5201314", chromedp.ByID),
+		chromedp.Click("#loginForm > div > div:nth-child(3) > button", chromedp.ByID),
 
+		//点击保存cookies
+		chromedp.Click("#react-root > section > main > div > div > div > section > div > button", chromedp.ByID),
+
+		//保存登陆信息
+		saveCookies(),
 	}
 
 	return login
@@ -44,7 +52,7 @@ func loginIns() chromedp.Tasks {
 func saveCookies() chromedp.ActionFunc {
 	return func(ctx context.Context) (err error) {
 		// 等待二维码登陆
-		if err = chromedp.WaitVisible(`#react-root > div > div > section > nav > div._8MQSO.Cx7Bp > div > div > div.QY4Ed.P0xOK > input`, chromedp.ByID).Do(ctx); err != nil {
+		if err = chromedp.WaitVisible(`#react-root`, chromedp.ByID).Do(ctx); err != nil {
 			return
 		}
 
@@ -74,21 +82,25 @@ func loadCookies() chromedp.ActionFunc {
 	return func(ctx context.Context) (err error) {
 		// 如果cookies临时文件不存在则直接跳过
 		if _, _err := os.Stat("cookies.tmp"); os.IsNotExist(_err) {
+			fmt.Println("不存在缓存文件")
 			return
 		}
 
 		// 如果存在则读取cookies的数据
 		cookiesData, err := ioutil.ReadFile("cookies.tmp")
 		if err != nil {
+			fmt.Println("读取缓存文件是吧")
 			return
 		}
 
 		// 反序列化
 		cookiesParams := network.SetCookiesParams{}
 		if err = cookiesParams.UnmarshalJSON(cookiesData); err != nil {
+			fmt.Println("反序列化失败")
 			return
 		}
 
+		fmt.Println("设置cookies成功")
 		// 设置cookies
 		return network.SetCookies(cookiesParams.Cookies).Do(ctx)
 	}
@@ -100,8 +112,8 @@ func checkLoginStatus() chromedp.ActionFunc {
 		if err = chromedp.Evaluate(`window.location.href`, &url).Do(ctx); err != nil {
 			return
 		}
-		if strings.Contains(url, "https://www.instagram.com") {
-			log.Println("已经使用cookies登陆")
+		if strings.Contains(url, "https://www.instagram.com/accounts/onetap/?next=%2F") {
+			log.Println("已经使用cookies登陆lele")
 			chromedp.Stop()
 		}
 		return
