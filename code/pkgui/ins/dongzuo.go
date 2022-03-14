@@ -17,8 +17,10 @@ func MyTest(ctx context.Context) {
 
 	err := chromedp.Run(ctx, loginIns())
 	if err != nil {
-		fmt.Println("错误了兄弟", err)
+		fmt.Println("登陆错误", err)
 	}
+
+	fmt.Println("任務完成了")
 
 }
 
@@ -89,6 +91,11 @@ func saveCookies() chromedp.ActionFunc {
 			return
 		}
 		fmt.Println("保存cookies成功")
+
+		err = chromedp.Run(ctx, Renwu_Sou_PL())
+		if err != nil {
+			fmt.Println("存cookies后评论错误", err)
+		}
 		return
 	}
 }
@@ -137,9 +144,11 @@ func checkLoginStatus() chromedp.ActionFunc {
 		//fmt.Println(url)
 		if strings.EqualFold(url, "https://www.instagram.com/") {
 			log.Println("已经使用cookies登陆lele")
-			chromedp.Stop()
-		} else {
-			fmt.Println("cookies对比不相等")
+			//chromedp.Stop()
+			err := chromedp.Run(ctx, Renwu_Sou_PL())
+			if err != nil {
+				fmt.Println("check检查完是否有cookies评论错误", err)
+			}
 		}
 
 		return
