@@ -35,7 +35,7 @@ func First() chromedp.ActionFunc {
 			fmt.Println("进行点击")
 			chromedp.Click("body > div.RnEpo._Yhr4 > div.Z2Inc._7c9RR > div > div > button", chromedp.ByQuery).Do(ctx)
 
-			pinglun().Do(ctx)
+			//pinglun().Do(ctx)
 		}
 
 		return

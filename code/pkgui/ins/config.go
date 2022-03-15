@@ -17,7 +17,7 @@ func InsInit() {
 		append(
 			chromedp.DefaultExecAllocatorOptions[:],
 			chromedp.Flag("headless", false),
-			chromedp.ProxyServer("gate1.rola.info:1009"),
+			chromedp.ProxyServer("45.92.174.113:56846"),
 			chromedp.Flag("proxy-bypass-list", "<-loopback>"),
 			//chromedp.Flag("disable-web-security", true),
 			//chromedp.Flag("disable-popup-blocking", true),
@@ -47,8 +47,8 @@ func InsInit() {
 					_ = chromedp.Run(ctx,
 						fetch.ContinueWithAuth(ev.RequestID, &fetch.AuthChallengeResponse{
 							Response: fetch.AuthChallengeResponseResponseProvideCredentials,
-							Username: "cplasfwst_dc_1",
-							Password: "xz5201314789",
+							Username: "FQFZykME",
+							Password: "19Y9hWiZ",
 						}),
 						// Chrome will remember the credential for the current instance,
 						// so we can disable the fetch domain once credential is provided.
