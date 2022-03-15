@@ -28,12 +28,14 @@ func First() chromedp.ActionFunc {
 
 		chromedp.WaitVisible("#react-root > section > main > article > div.EZdmt > div > div > div:nth-child(1) > div:nth-child(1)", chromedp.ByID).Do(ctx)
 
-		chromedp.Click("#react-root > section > main > article > div.EZdmt > div > div > div:nth-child(1) > div:nth-child(1)", chromedp.ByID).Do(ctx)
+		chromedp.Click("#react-root > section > main > article > div.EZdmt > div > div > div:nth-child(1) > div:nth-child(2)", chromedp.ByID).Do(ctx)
 
 		for true {
-			time.Sleep(time.Second * 3600)
+
+			time.Sleep(time.Second * 10)
 			fmt.Println("进行点击")
-			chromedp.Click("body > div.RnEpo._Yhr4 > div.Z2Inc._7c9RR > div > div > button", chromedp.ByQuery).Do(ctx)
+			//点击下一个
+			chromedp.Click("body > div.RnEpo._Yhr4 > div.Z2Inc._7c9RR > div > div.l8mY4.feth3 > button > div > span > svg", chromedp.ByQuery).Do(ctx)
 
 			//pinglun().Do(ctx)
 		}
