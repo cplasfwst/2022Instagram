@@ -1,19 +1,151 @@
 object Form1: TForm1
-  Left = 412
-  Height = 605
-  Top = 203
-  Width = 995
+  Left = 305
+  Height = 676
+  Top = 157
+  Width = 1061
   Caption = '2022-Xdoctor群控神器'
-  ClientHeight = 605
-  ClientWidth = 995
+  ClientHeight = 676
+  ClientWidth = 1061
   LCLVersion = '2.0.12.0'
-  object Button1: TButton
-    Left = 128
-    Height = 54
-    Top = 40
-    Width = 109
-    Caption = '开始'
-    OnClick = Button1Click
+  object PageControl1: TPageControl
+    Left = 0
+    Height = 604
+    Top = 72
+    Width = 1061
+    ActivePage = TabSheet1
+    TabIndex = 0
     TabOrder = 0
+    object TabSheet1: TTabSheet
+      Caption = 'INS'
+      ClientHeight = 574
+      ClientWidth = 1053
+      object Button1: TButton
+        Left = 936
+        Height = 54
+        Top = 520
+        Width = 109
+        Caption = '开始'
+        OnClick = Button1Click
+        TabOrder = 0
+      end
+      object Guanjianci: TEdit
+        Left = 88
+        Height = 25
+        Top = 10
+        Width = 96
+        TabOrder = 1
+      end
+      object Label5: TLabel
+        Left = 9
+        Height = 17
+        Top = 14
+        Width = 67
+        Caption = '账号1关键词'
+        ParentColor = False
+      end
+      object Label6: TLabel
+        Left = 226
+        Height = 17
+        Top = 13
+        Width = 67
+        Caption = '账号1话术：'
+        ParentColor = False
+      end
+      object Huashu: TEdit
+        Left = 316
+        Height = 25
+        Top = 8
+        Width = 538
+        TabOrder = 2
+        Text = '新group:足球交友交流，足球神秘貼士，內幕球賽資料:xdoctorwho.com'
+      end
+      object PinglunCD: TEdit
+        Left = 944
+        Height = 25
+        Top = 8
+        Width = 60
+        NumbersOnly = True
+        TabOrder = 3
+        Text = '60'
+      end
+      object Label7: TLabel
+        Left = 888
+        Height = 17
+        Top = 11
+        Width = 53
+        Caption = '评论CD：'
+        ParentColor = False
+      end
+      object Label8: TLabel
+        Left = 1009
+        Height = 17
+        Top = 11
+        Width = 12
+        Caption = '秒'
+        ParentColor = False
+      end
+    end
+    object TabSheet2: TTabSheet
+      Caption = '设置'
+      ClientHeight = 574
+      ClientWidth = 1053
+      object Label1: TLabel
+        Left = 0
+        Height = 17
+        Top = 32
+        Width = 67
+        Caption = '代理地址1：'
+        ParentColor = False
+      end
+      object HostDaili: TEdit
+        Left = 96
+        Height = 25
+        Top = 32
+        Width = 146
+        OnChange = HostDailiChange
+        TabOrder = 0
+        Text = '45.92.174.113:56846'
+      end
+      object Label2: TLabel
+        Left = 96
+        Height = 17
+        Top = 7
+        Width = 63
+        Caption = '地址:端口号'
+        ParentColor = False
+      end
+      object Label3: TLabel
+        Left = 296
+        Height = 17
+        Top = 32
+        Width = 36
+        Caption = '账号：'
+        ParentColor = False
+      end
+      object DLzhanghao: TEdit
+        Left = 352
+        Height = 25
+        Top = 32
+        Width = 160
+        TabOrder = 1
+        Text = 'FQFZykME'
+      end
+      object Label4: TLabel
+        Left = 560
+        Height = 17
+        Top = 32
+        Width = 36
+        Caption = '密码：'
+        ParentColor = False
+      end
+      object DLmima: TEdit
+        Left = 608
+        Height = 25
+        Top = 32
+        Width = 165
+        TabOrder = 2
+        Text = '19Y9hWiZ'
+      end
+    end
   end
 end

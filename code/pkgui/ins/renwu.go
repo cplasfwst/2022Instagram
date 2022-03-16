@@ -4,7 +4,6 @@ import (
 	"context"
 	"fmt"
 	"github.com/chromedp/chromedp"
-	"time"
 )
 
 func Renwu_Sou_PL() chromedp.Tasks {
@@ -22,7 +21,7 @@ func Renwu_Sou_PL() chromedp.Tasks {
 
 func First() chromedp.ActionFunc {
 	return func(ctx context.Context) (err error) {
-		chromedp.SendKeys("#react-root > section > nav > div._8MQSO.Cx7Bp > div > div > div.QY4Ed.P0xOK > input", "足球", chromedp.ByID).Do(ctx)
+		chromedp.SendKeys("#react-root > section > nav > div._8MQSO.Cx7Bp > div > div > div.QY4Ed.P0xOK > input", Guanjianci, chromedp.ByID).Do(ctx)
 
 		chromedp.Click("#react-root > section > nav > div._8MQSO.Cx7Bp > div > div > div.QY4Ed.P0xOK > div.yPP5B > div > div._01UL2 > div > div:nth-child(1) > a", chromedp.ByID).Do(ctx)
 
@@ -31,13 +30,13 @@ func First() chromedp.ActionFunc {
 		chromedp.Click("#react-root > section > main > article > div.EZdmt > div > div > div:nth-child(1) > div:nth-child(2)", chromedp.ByID).Do(ctx)
 
 		for true {
-
-			time.Sleep(time.Second * 10)
+			CountTime(PinglunCD)
+			//time.Sleep(time.Minute * time.Duration(pkgui.PinglunCD))
 			fmt.Println("进行点击")
 			//点击下一个
 			chromedp.Click("body > div.RnEpo._Yhr4 > div.Z2Inc._7c9RR > div > div.l8mY4.feth3 > button > div > span > svg", chromedp.ByQuery).Do(ctx)
 
-			//pinglun().Do(ctx)
+			pinglun().Do(ctx)
 		}
 
 		return
@@ -47,7 +46,7 @@ func First() chromedp.ActionFunc {
 func pinglun() chromedp.ActionFunc {
 	return func(ctx context.Context) (err error) {
 
-		chromedp.SendKeys("body > div.RnEpo._Yhr4 > div.pbNvD.QZZGH.bW6vo > div > article > div > div.HP0qD > div > div > div.eo2As > section.sH9wk._JgwE > div > form > textarea", "新group:足球交友交流，足球神秘貼士，內幕球賽資料:xdoctorwho.com", chromedp.ByQuery).Do(ctx)
+		chromedp.SendKeys("body > div.RnEpo._Yhr4 > div.pbNvD.QZZGH.bW6vo > div > article > div > div.HP0qD > div > div > div.eo2As > section.sH9wk._JgwE > div > form > textarea", Huashu, chromedp.ByQuery).Do(ctx)
 
 		chromedp.Click("body > div.RnEpo._Yhr4 > div.pbNvD.QZZGH.bW6vo > div > article > div > div.HP0qD > div > div > div.eo2As > section.sH9wk._JgwE > div > form > button", chromedp.ByQuery).Do(ctx)
 

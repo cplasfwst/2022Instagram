@@ -5,6 +5,7 @@ import (
 	"fmt"
 	"io/ioutil"
 	"net/http"
+	"time"
 )
 
 type DlIp struct {
@@ -35,5 +36,15 @@ func ChangeIP(ipproxy string) {
 	} else {
 		fmt.Println("更换IP失败")
 
+	}
+}
+
+func CountTime(num int) {
+	if num > 0 {
+		fmt.Println(num)
+		time.Sleep(time.Duration(1) * time.Second)
+		CountTime(num - 1)
+	} else {
+		fmt.Println("倒计时完成")
 	}
 }

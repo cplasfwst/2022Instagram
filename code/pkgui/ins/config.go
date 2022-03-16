@@ -17,7 +17,7 @@ func InsInit() {
 		append(
 			chromedp.DefaultExecAllocatorOptions[:],
 			chromedp.Flag("headless", false),
-			chromedp.ProxyServer("45.92.174.113:56846"),
+			chromedp.ProxyServer(HostDaili),
 			chromedp.Flag("proxy-bypass-list", "<-loopback>"),
 			//chromedp.Flag("disable-web-security", true),
 			//chromedp.Flag("disable-popup-blocking", true),
