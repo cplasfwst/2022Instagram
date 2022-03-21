@@ -92,7 +92,7 @@ func saveCookies() chromedp.ActionFunc {
 		}
 		fmt.Println("保存cookies成功")
 
-		err = chromedp.Run(ctx, Renwu_Sou_PL())
+		err = chromedp.Run(ctx, Renwu_Fatie())
 		if err != nil {
 			fmt.Println("存cookies后评论错误", err)
 		}
@@ -145,7 +145,7 @@ func checkLoginStatus() chromedp.ActionFunc {
 		if strings.EqualFold(url, "https://www.instagram.com/") {
 			log.Println("已经使用cookies登陆lele")
 			//chromedp.Stop()
-			err := chromedp.Run(ctx, Renwu_Sou_PL())
+			err := chromedp.Run(ctx, Renwu_Fatie())
 			if err != nil {
 				fmt.Println("check检查完是否有cookies评论错误", err)
 			}

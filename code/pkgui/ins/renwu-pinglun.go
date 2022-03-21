@@ -6,8 +6,9 @@ import (
 	"github.com/chromedp/chromedp"
 )
 
-func Renwu_Sou_PL() chromedp.Tasks {
+func Renwu_Pinglun() chromedp.Tasks {
 	pinglun := chromedp.Tasks{
+		//
 
 		//1,寻找关于足球的话题
 		First(),
@@ -21,7 +22,13 @@ func Renwu_Sou_PL() chromedp.Tasks {
 
 func First() chromedp.ActionFunc {
 	return func(ctx context.Context) (err error) {
+		fmt.Println("开始寻找关键词按钮")
+
 		chromedp.SendKeys("#react-root > section > nav > div._8MQSO.Cx7Bp > div > div > div.QY4Ed.P0xOK > input", Guanjianci, chromedp.ByID).Do(ctx)
+
+		fmt.Println("已经输入关键词...")
+
+		chromedp.WaitVisible("#react-root > section > nav > div._8MQSO.Cx7Bp > div > div > div.QY4Ed.P0xOK > div.yPP5B > div > div._01UL2 > div > div:nth-child(1) > a", chromedp.ByID).Do(ctx)
 
 		chromedp.Click("#react-root > section > nav > div._8MQSO.Cx7Bp > div > div > div.QY4Ed.P0xOK > div.yPP5B > div > div._01UL2 > div > div:nth-child(1) > a", chromedp.ByID).Do(ctx)
 
