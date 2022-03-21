@@ -12,8 +12,8 @@ object Form1: TForm1
     Height = 604
     Top = 72
     Width = 1061
-    ActivePage = TabSheet1
-    TabIndex = 0
+    ActivePage = TabSheet2
+    TabIndex = 1
     TabOrder = 0
     object TabSheet1: TTabSheet
       Caption = 'INS'
@@ -57,6 +57,7 @@ object Form1: TForm1
         Top = 8
         Width = 538
         TabOrder = 2
+        Text = '新group:足球交友交流，足球神秘貼士，內幕球賽資料:xdoctorwho.com'
       end
       object PinglunCD: TEdit
         Left = 944
@@ -65,6 +66,7 @@ object Form1: TForm1
         Width = 60
         NumbersOnly = True
         TabOrder = 3
+        Text = '60'
       end
       object Label7: TLabel
         Left = 888
@@ -102,6 +104,7 @@ object Form1: TForm1
         Width = 146
         OnChange = HostDailiChange
         TabOrder = 0
+        Text = 'gate1.rola.info:2009'
       end
       object Label2: TLabel
         Left = 96
@@ -125,6 +128,7 @@ object Form1: TForm1
         Top = 32
         Width = 160
         TabOrder = 1
+        Text = 'cplasfwst_dc_1'
       end
       object Label4: TLabel
         Left = 560
@@ -140,6 +144,7 @@ object Form1: TForm1
         Top = 32
         Width = 165
         TabOrder = 2
+        Text = 'xz5201314789'
       end
     end
   end

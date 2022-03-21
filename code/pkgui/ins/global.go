@@ -1,5 +1,8 @@
 package ins
 
+//完成任务总数
+var Renwu int
+
 //搜索的关键词
 var Guanjianci string
 

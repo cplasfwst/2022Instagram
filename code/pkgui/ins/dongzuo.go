@@ -42,8 +42,8 @@ func loginIns() chromedp.Tasks {
 		checkLoginStatus(),
 
 		//3,如是没有登陆就输入账号密码并且登陆
-		chromedp.SendKeys("#loginForm > div > div:nth-child(1) > div > label > input", "79398080392", chromedp.ByID),
-		chromedp.SendKeys("#loginForm > div > div:nth-child(2) > div > label > input", "lisa5201314", chromedp.ByID),
+		chromedp.SendKeys("#loginForm > div > div:nth-child(1) > div > label > input", "79398107927", chromedp.ByID),
+		chromedp.SendKeys("#loginForm > div > div:nth-child(2) > div > label > input", "xdoctorlili5201314", chromedp.ByID),
 		chromedp.Click("#loginForm > div > div:nth-child(3) > button", chromedp.ByID),
 
 		//点击保存cookies

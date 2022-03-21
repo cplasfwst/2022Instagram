@@ -30,13 +30,12 @@ func First() chromedp.ActionFunc {
 		chromedp.Click("#react-root > section > main > article > div.EZdmt > div > div > div:nth-child(1) > div:nth-child(2)", chromedp.ByID).Do(ctx)
 
 		for true {
+			pinglun().Do(ctx)
 			CountTime(PinglunCD)
 			//time.Sleep(time.Minute * time.Duration(pkgui.PinglunCD))
 			fmt.Println("进行点击")
 			//点击下一个
 			chromedp.Click("body > div.RnEpo._Yhr4 > div.Z2Inc._7c9RR > div > div.l8mY4.feth3 > button > div > span > svg", chromedp.ByQuery).Do(ctx)
-
-			pinglun().Do(ctx)
 		}
 
 		return
@@ -50,7 +49,8 @@ func pinglun() chromedp.ActionFunc {
 
 		chromedp.Click("body > div.RnEpo._Yhr4 > div.pbNvD.QZZGH.bW6vo > div > article > div > div.HP0qD > div > div > div.eo2As > section.sH9wk._JgwE > div > form > button", chromedp.ByQuery).Do(ctx)
 
-		fmt.Println("评论完成")
+		Renwu++
+		fmt.Println("评论完成，目前完成推广次数", Renwu)
 
 		return
 	}

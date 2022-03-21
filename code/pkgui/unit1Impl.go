@@ -56,5 +56,9 @@ func (f *TForm1) getGlobal() {
 func (f *TForm1) OnButton1Click(sender vcl.IObject) {
 	f.getGlobal()
 
-	ins.InsInit()
+	go ins.InsInit()
+}
+
+func (f *TForm1) OnHostDailiChange(sender vcl.IObject) {
+
 }
