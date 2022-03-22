@@ -1,14 +1,13 @@
 package renwu
 
 import (
-	"2022Instagram-Qunkong/code/pkgui/ins"
 	"context"
 	"github.com/chromedp/cdproto/fetch"
 	"github.com/chromedp/chromedp"
 	"log"
 )
 
-func InsInit() {
+func InsInit(data map[string]string) {
 	//ChangeIP("cplasfwst_dc_1")
 	ctx, _ := chromedp.NewExecAllocator(
 		context.Background(),
@@ -18,7 +17,7 @@ func InsInit() {
 		append(
 			chromedp.DefaultExecAllocatorOptions[:],
 			chromedp.Flag("headless", false),
-			chromedp.ProxyServer(ins.HostDaili),
+			chromedp.ProxyServer(data["DLhost"]),
 			chromedp.Flag("proxy-bypass-list", "<-loopback>"),
 			//chromedp.Flag("disable-web-security", true),
 			//chromedp.Flag("disable-popup-blocking", true),
@@ -48,8 +47,8 @@ func InsInit() {
 					_ = chromedp.Run(ctx,
 						fetch.ContinueWithAuth(ev.RequestID, &fetch.AuthChallengeResponse{
 							Response: fetch.AuthChallengeResponseResponseProvideCredentials,
-							Username: ins.DLzhanghao,
-							Password: ins.DLmima,
+							Username: data["DLzhanghao"],
+							Password: data["DLmima"],
 						}),
 						// Chrome will remember the credential for the current instance,
 						// so we can disable the fetch domain once credential is provided.
@@ -63,5 +62,5 @@ func InsInit() {
 		}
 	})
 
-	Login_cookies(ctx)
+	Login_cookies(ctx, data)
 }

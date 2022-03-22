@@ -41,7 +41,7 @@ func Fa_First() chromedp.ActionFunc {
 		fmt.Println("已经完成点击1")
 		//点击继续按钮
 		chromedp.WaitVisible(`body > div.RnEpo.gpWnf.Yx5HN > div.pbNvD > div > div > div > div.qF0y9.Igw0E.IwRSH.eGOV_._4EzTm > div > div > div.qF0y9.Igw0E.rBNOH.YBx95._4EzTm.fm1AK > h1 > div`, chromedp.ByQuery).Do(ctx)
-		chromedp.Click(`body > div.RnEpo.gpWnf.Yx5HN > div.pbNvD > div > div > div > div.qF0y9.Igw0E.IwRSH.eGOV_._4EzTm > div > div > div.WaOAr._8E02J > div > button`, chromedp.ByQuery).Do(ctx)
+		chromedp.Click(`body > div.RnEpo.gpWnf.Yx5HN > div.pbNvD > div > div > div > div.qF0y9.Igw0E.IwRSH.eGOV_._4EzTm > div > div > div.WaOAr._8E02J > div > button`, chromedp.ByQueryAll).Do(ctx)
 		fmt.Println("已经完成点击2")
 		//点击原版图像
 		chromedp.Click(`body > div.RnEpo.gpWnf.Yx5HN > div.pbNvD > div > div > div > div.uYzeu.gIMwG > div._83r9B > div > div > div > div.qF0y9.Igw0E.IwRSH.eGOV_.vwCYk.lDRO1 > div > div:nth-child(1) > button`, chromedp.ByQuery).Do(ctx)

@@ -11,5 +11,5 @@ var DLmima string
 //帖子说明
 var Tiezi []string
 
-type User struct {
-}
+//账号密码文本
+var UserData []map[string]string

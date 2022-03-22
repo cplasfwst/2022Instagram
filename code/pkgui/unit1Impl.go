@@ -38,7 +38,12 @@ func (f *TForm1) getGlobal() {
 func (f *TForm1) OnButton1Click(sender vcl.IObject) {
 	f.getGlobal()
 
-	go renwu.InsInit()
+	//预先加载账号密码文本
+	ins.UserData, _ = ins.ImportuserMap("users.txt")
+	fmt.Println(len(ins.UserData))
+	fmt.Println(ins.UserData)
+
+	go renwu.InsInit(ins.UserData[0])
 }
 
 func (f *TForm1) OnHostDailiChange(sender vcl.IObject) {

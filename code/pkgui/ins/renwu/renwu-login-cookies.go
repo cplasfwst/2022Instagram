@@ -13,9 +13,9 @@ import (
 	"strings"
 )
 
-func Login_cookies(ctx context.Context) {
+func Login_cookies(ctx context.Context, data map[string]string) {
 
-	err := chromedp.Run(ctx, loginIns())
+	err := chromedp.Run(ctx, loginIns(data))
 	if err != nil {
 		fmt.Println("登陆错误", err)
 	}
@@ -24,7 +24,7 @@ func Login_cookies(ctx context.Context) {
 
 }
 
-func loginIns() chromedp.Tasks {
+func loginIns(data map[string]string) chromedp.Tasks {
 	login := chromedp.Tasks{
 		//加载代理
 		fetch.Enable().WithHandleAuthRequests(true),
@@ -42,8 +42,8 @@ func loginIns() chromedp.Tasks {
 		checkLoginStatus(),
 
 		//3,如是没有登陆就输入账号密码并且登陆
-		chromedp.SendKeys("#loginForm > div > div:nth-child(1) > div > label > input", "79398107927", chromedp.ByID),
-		chromedp.SendKeys("#loginForm > div > div:nth-child(2) > div > label > input", "xdoctorlili5201314", chromedp.ByID),
+		chromedp.SendKeys("#loginForm > div > div:nth-child(1) > div > label > input", data["INSzhanghao"], chromedp.ByID),
+		chromedp.SendKeys("#loginForm > div > div:nth-child(2) > div > label > input", data["INSmima"], chromedp.ByID),
 		chromedp.Click("#loginForm > div > div:nth-child(3) > button", chromedp.ByID),
 
 		//点击保存cookies
@@ -67,6 +67,8 @@ func loginIns() chromedp.Tasks {
 func saveCookies() chromedp.ActionFunc {
 	return func(ctx context.Context) (err error) {
 		fmt.Println("进来了存储cookies")
+		//读取临时cookies自加
+		wd, err := os.Getwd()
 		// 等待二维码登陆
 		if err = chromedp.WaitVisible(`#react-root > section > nav > div._8MQSO.Cx7Bp > div > div > div.ctQZg.KtFt3 > div > div:nth-child(1) > div > a > svg`, chromedp.ByID).Do(ctx); err != nil {
 			fmt.Println("等待二维码这里出错（保存cookies的前置条件）")
@@ -87,7 +89,7 @@ func saveCookies() chromedp.ActionFunc {
 		}
 
 		// 3. 存储到临时文件
-		if err = ioutil.WriteFile("cookies.tmp", cookiesData, 0755); err != nil {
+		if err = ioutil.WriteFile(wd+"/data/cookies/cookies.tmp", cookiesData, 0755); err != nil {
 			return
 		}
 		fmt.Println("保存cookies成功")
@@ -103,14 +105,19 @@ func saveCookies() chromedp.ActionFunc {
 // 加载Cookies
 func loadCookies() chromedp.ActionFunc {
 	return func(ctx context.Context) (err error) {
+		//读取临时cookies自加
+		wd, err := os.Getwd()
+		if err != nil {
+			log.Println(err)
+		}
 		// 如果cookies临时文件不存在则直接跳过
-		if _, _err := os.Stat("cookies.tmp"); os.IsNotExist(_err) {
+		if _, _err := os.Stat(wd + "/data/cookies/cookies.tmp"); os.IsNotExist(_err) {
 			fmt.Println("不存在缓存文件")
 			return
 		}
 
 		// 如果存在则读取cookies的数据
-		cookiesData, err := ioutil.ReadFile("cookies.tmp")
+		cookiesData, err := ioutil.ReadFile(wd + "/data/cookies/cookies.tmp")
 		if err != nil {
 			fmt.Println("读取缓存文件是吧")
 			return

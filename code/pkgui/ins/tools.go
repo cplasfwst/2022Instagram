@@ -1,8 +1,11 @@
 package ins
 
 import (
+	"bufio"
 	"encoding/json"
+	"errors"
 	"fmt"
+	"io"
 	"io/ioutil"
 	"log"
 	"math/rand"
@@ -89,4 +92,44 @@ func ReadTiezi(path string) []string {
 	}
 
 	return tiezitest
+}
+
+func ImportuserMap(filename string) ([]map[string]string, error) {
+	var data []map[string]string
+
+	wd, err := os.Getwd()
+	if err != nil {
+		log.Println(err)
+	}
+	file, err := os.Open(wd + "/data/user/" + filename)
+	if err != nil {
+		return data, errors.New("打开账号密码文件失败.")
+	}
+	defer file.Close()
+	bf := bufio.NewReader(file)
+	for {
+		line, isPrefix, err1 := bf.ReadLine()
+		if err1 != nil {
+			if err1 != io.EOF {
+				return data, errors.New("读取账号密码文件失败")
+			}
+			break
+		}
+		if isPrefix {
+			return data, errors.New("行数有点问题")
+		}
+		str := string(line)
+		s := strings.Split(str, "----")
+
+		user := make(map[string]string)
+		user["DLhost"] = s[0]
+		user["DLzhanghao"] = s[1]
+		user["DLmima"] = s[2]
+		user["INSzhanghao"] = s[3]
+		user["INSmima"] = s[4]
+		data = append(data, user)
+	}
+
+	//fmt.Println(data)
+	return data, nil
 }
