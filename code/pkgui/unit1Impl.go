@@ -5,6 +5,7 @@ import (
 	"2022Instagram-Qunkong/code/pkgui/ins/renwu"
 	"fmt"
 	"github.com/ying32/govcl/vcl"
+	"strconv"
 )
 
 //::private::
@@ -12,6 +13,11 @@ type TForm1Fields struct {
 }
 
 func (f *TForm1) getGlobal() {
+	//获取INS任务延迟数
+	atoi, _ := strconv.Atoi(f.Insyanchi.Text())
+	ins.Insyanchi = atoi
+	//是否隐藏浏览器
+	ins.Isheadless = f.Isheadless.Checked()
 	//随机帖子话术
 	path := f.Tiezi_huashu.Text()
 	ins.Tiezi_huashu = ins.ReadTiezi(path)
@@ -46,12 +52,15 @@ func (f *TForm1) OnButton2Click(sender vcl.IObject) {
 }
 
 func (f *TForm1) OnButton3Click(sender vcl.IObject) {
-	changdu := len(ins.UserData)
-	f.INSzhuangtai.SetRowCount(int32(changdu) + 1)
-	for i := 0; i < changdu; i++ {
-		f.INSzhuangtai.SetCells(0, int32(i+1), ins.UserData[i]["INSzhanghao"])
-		f.INSzhuangtai.SetCells(1, int32(i+1), ins.UserData[i]["INSzhuangtai"])
-	}
+	//测试状态
+	//changdu := len(ins.UserData)
+	//f.INSzhuangtai.SetRowCount(int32(changdu) + 1)
+	//for i := 0; i < changdu; i++ {
+	//	f.INSzhuangtai.SetCells(0, int32(i+1), ins.UserData[i]["INSzhanghao"])
+	//	f.INSzhuangtai.SetCells(1, int32(i+1), ins.UserData[i]["INSzhuangtai"])
+	//}
+	//测试其他
+	//fmt.Println(f.Isheadless.Checked())
 }
 
 func (f *TForm1) OnZhuangTaiTimer(sender vcl.IObject) {

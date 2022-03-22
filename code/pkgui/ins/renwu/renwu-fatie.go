@@ -58,12 +58,12 @@ func Fa_First() chromedp.ActionFunc {
 
 		fmt.Println("输入完成")
 		//点击分享按钮
-		//chromedp.Click(`body > div.RnEpo.gpWnf.Yx5HN > div.pbNvD > div > div > div > div.qF0y9.Igw0E.IwRSH.eGOV_._4EzTm > div > div > div.WaOAr._8E02J > div > button`, chromedp.ByQuery).Do(ctx)
+		chromedp.Click(`body > div.RnEpo.gpWnf.Yx5HN > div.pbNvD > div > div > div > div.qF0y9.Igw0E.IwRSH.eGOV_._4EzTm > div > div > div.WaOAr._8E02J > div > button`, chromedp.ByQuery).Do(ctx)
 
 		//等待完成
-		//chromedp.WaitVisible(`body > div.RnEpo.gpWnf.Yx5HN > div.pbNvD > div > div > div > div.uYzeu > div._C8iK > div > div > div > h2`, chromedp.ByQuery).Do(ctx)
+		chromedp.WaitVisible(`body > div.RnEpo.gpWnf.Yx5HN > div.pbNvD > div > div > div > div.uYzeu > div._C8iK > div > div > div > h2`, chromedp.ByQuery).Do(ctx)
 		//点击关闭
-		//chromedp.Click(`body > div.RnEpo.gpWnf.Yx5HN > div.NOTWr > button`, chromedp.ByQuery).Do(ctx)
+		chromedp.Click(`body > div.RnEpo.gpWnf.Yx5HN > div.NOTWr > button`, chromedp.ByQuery).Do(ctx)
 		return
 	}
 }

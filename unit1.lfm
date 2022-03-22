@@ -59,9 +59,52 @@ object Form1: TForm1
         OnClick = Button3Click
         TabOrder = 2
       end
+      object Label2: TLabel
+        Left = 655
+        Height = 17
+        Top = 15
+        Width = 120
+        Caption = '每个任务的延迟时间：'
+        ParentColor = False
+      end
+      object Insyanchi: TEdit
+        Left = 776
+        Height = 25
+        Top = 13
+        Width = 85
+        NumbersOnly = True
+        TabOrder = 3
+        Text = '3600'
+      end
+      object Label3: TLabel
+        Left = 877
+        Height = 17
+        Top = 15
+        Width = 12
+        Caption = '秒'
+        ParentColor = False
+      end
     end
     object TabSheet2: TTabSheet
       Caption = '设置'
+      ClientHeight = 574
+      ClientWidth = 1053
+      object Label1: TLabel
+        Left = 16
+        Height = 17
+        Top = 24
+        Width = 108
+        Caption = '是否隐藏运行页面：'
+        ParentColor = False
+      end
+      object Isheadless: TCheckBox
+        Left = 139
+        Height = 21
+        Top = 22
+        Width = 34
+        Caption = '是'
+        TabOrder = 0
+      end
     end
     object TabSheet3: TTabSheet
       Caption = '随机话术'

@@ -166,7 +166,7 @@ func checkLoginStatus(data map[string]string) chromedp.ActionFunc {
 					fmt.Println("check检查完是否有cookies评论错误", err)
 				}
 				renwushu++
-				ins.CountTime(100, data, renwushu)
+				ins.CountTime(ins.Insyanchi, data, renwushu)
 
 			}
 		}

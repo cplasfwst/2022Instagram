@@ -16,7 +16,12 @@ type
     Button1: TButton;
     Button2: TButton;
     Button3: TButton;
+    Insyanchi: TEdit;
+    Isheadless: TCheckBox;
     INSzhuangtai: TStringGrid;
+    Label1: TLabel;
+    Label2: TLabel;
+    Label3: TLabel;
     Tiezi_huashu: TEdit;
     PageControl1: TPageControl;
     TabSheet1: TTabSheet;

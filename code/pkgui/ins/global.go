@@ -1,7 +1,11 @@
 package ins
 
-//完成任务总数
+//完成任务总数和倒计时
 var Renwu int
+var Insyanchi int
+
+//是否显示页面
+var Isheadless bool
 
 //图片的数量
 var PictureCount int

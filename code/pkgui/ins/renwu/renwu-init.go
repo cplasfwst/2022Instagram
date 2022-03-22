@@ -1,6 +1,7 @@
 package renwu
 
 import (
+	"2022Instagram-Qunkong/code/pkgui/ins"
 	"context"
 	"github.com/chromedp/cdproto/fetch"
 	"github.com/chromedp/chromedp"
@@ -16,7 +17,7 @@ func InsInit(data map[string]string) {
 		// 当然也可以根据自己的需要进行修改，这个flag是浏览器的设置
 		append(
 			chromedp.DefaultExecAllocatorOptions[:],
-			chromedp.Flag("headless", false),
+			chromedp.Flag("headless", ins.Isheadless),
 			chromedp.ProxyServer(data["DLhost"]),
 			chromedp.Flag("proxy-bypass-list", "<-loopback>"),
 			//chromedp.Flag("disable-web-security", true),
