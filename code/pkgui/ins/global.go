@@ -10,7 +10,6 @@ var DLmima string
 
 //帖子说明
 var Tiezi []string
-var ReadTieziBool bool = false
 
 type User struct {
 }
