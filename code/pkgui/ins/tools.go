@@ -68,8 +68,29 @@ func GetRandNum() int {
 	fmt.Println("随机数是", a)
 	return a
 }
+func ReadTiezi(path string) []string {
+	var tiezitest []string
+	wd, err := os.Getwd()
+	if err != nil {
+		log.Println(err)
+	}
+	bytes, err := ioutil.ReadFile(wd + "/data/text/" + path)
+	if err != nil {
+		log.Println(err)
+	}
 
-func ReadTiezi(path string) {
+	//fmt.Println("Bytes read: ", len(bytes))
+	//fmt.Println("String read: ", string(bytes))
+	str := string(bytes)
+	split := strings.Split(str, "|")
+
+	for i := 0; i < len(split); i++ {
+		tiezitest = append(tiezitest, split[i])
+	}
+
+	return tiezitest
+}
+func ReadTiezi2(path string) {
 	if ReadTieziBool {
 		fmt.Println("已经读取过数据了")
 	} else {

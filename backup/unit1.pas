@@ -15,6 +15,7 @@ type
   TForm1 = class(TForm)
     Button1: TButton;
     Button2: TButton;
+    Tiezi_huashu: TEdit;
     PinglunCD: TEdit;
     Huashu: TEdit;
     HostDaili: TEdit;
@@ -30,7 +31,6 @@ type
     Label7: TLabel;
     Label8: TLabel;
     PageControl1: TPageControl;
-    Tiezi: TRichEdit;
     TabSheet1: TTabSheet;
     TabSheet2: TTabSheet;
     TabSheet3: TTabSheet;
