@@ -1,6 +1,7 @@
 package renwu
 
 import (
+	"2022Instagram-Qunkong/code/pkgui/ins"
 	"context"
 	"fmt"
 	"github.com/chromedp/cdproto/browser"
@@ -12,6 +13,10 @@ import (
 	"os"
 	"strings"
 )
+
+//任务入口方法有两个：1：是已经保存cookies，2：是保存cookies后准备开始任务
+//1,checkLoginStatus
+//2,saveCookies
 
 func Login_cookies(ctx context.Context, data map[string]string) {
 
@@ -66,6 +71,7 @@ func loginIns(data map[string]string) chromedp.Tasks {
 // 保存Cookies
 func saveCookies(data map[string]string) chromedp.ActionFunc {
 	return func(ctx context.Context) (err error) {
+		//var gebierenwu int
 		fmt.Println("进来了存储cookies")
 		//读取临时cookies自加
 		wd, err := os.Getwd()
@@ -152,10 +158,16 @@ func checkLoginStatus(data map[string]string) chromedp.ActionFunc {
 		if strings.EqualFold(url, "https://www.instagram.com/") {
 			log.Println("已经使用cookies登陆lele")
 			data["INSzhuangtai"] = "已经使用cookies登陆"
-			//chromedp.Stop()
-			err := chromedp.Run(ctx, Renwu_Fatie())
-			if err != nil {
-				fmt.Println("check检查完是否有cookies评论错误", err)
+			//开始循环任务，先定义一个账号个人完成任务数
+			renwushu := 0
+			for true {
+				err := chromedp.Run(ctx, Renwu_Fatie())
+				if err != nil {
+					fmt.Println("check检查完是否有cookies评论错误", err)
+				}
+				renwushu++
+				ins.CountTime(100, data, renwushu)
+
 			}
 		}
 

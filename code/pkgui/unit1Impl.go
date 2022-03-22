@@ -19,7 +19,8 @@ func (f *TForm1) getGlobal() {
 	ins.UserData, _ = ins.ImportuserMap("users.txt")
 	//获取图片数量
 	ins.PictureCount = ins.GetPictureCount()
-
+	//开启状态更新器
+	f.ZhuangTai.SetEnabled(true)
 }
 
 func (f *TForm1) OnButton1Click(sender vcl.IObject) {
@@ -51,4 +52,14 @@ func (f *TForm1) OnButton3Click(sender vcl.IObject) {
 		f.INSzhuangtai.SetCells(0, int32(i+1), ins.UserData[i]["INSzhanghao"])
 		f.INSzhuangtai.SetCells(1, int32(i+1), ins.UserData[i]["INSzhuangtai"])
 	}
+}
+
+func (f *TForm1) OnZhuangTaiTimer(sender vcl.IObject) {
+	changdu := len(ins.UserData)
+	f.INSzhuangtai.SetRowCount(int32(changdu) + 1)
+	for i := 0; i < changdu; i++ {
+		f.INSzhuangtai.SetCells(0, int32(i+1), ins.UserData[i]["INSzhanghao"])
+		f.INSzhuangtai.SetCells(1, int32(i+1), ins.UserData[i]["INSzhuangtai"])
+	}
+
 }

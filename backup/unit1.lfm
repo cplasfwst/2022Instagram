@@ -32,12 +32,13 @@ object Form1: TForm1
         Left = -4
         Height = 472
         Top = 0
-        Width = 828
+        Width = 636
         ColCount = 2
+        RowCount = 1
         TabOrder = 1
         ColWidths = (
-          120
-          273
+          134
+          494
         )
         Cells = (
           2
@@ -84,5 +85,10 @@ object Form1: TForm1
         Text = 'tiezi_huashu.txt'
       end
     end
+  end
+  object ZhuangTai: TTimer
+    OnTimer = ZhuangTaiTimer
+    Left = 963
+    Top = 113
   end
 end

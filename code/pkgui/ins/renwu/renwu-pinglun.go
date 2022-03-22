@@ -40,8 +40,8 @@ func First() chromedp.ActionFunc {
 		for true {
 			pinglun().Do(ctx)
 			//100秒
-			ins.CountTime(100)
-			//time.Sleep(time.Minute * time.Duration(pkgui.PinglunCD))
+			//ins.CountTime(100)
+			//time.Sleep(time.Minute * time.Duration(pkgui.PinglunCD)) 这个未测试
 			fmt.Println("进行点击")
 			//点击下一个
 			chromedp.Click("body > div.RnEpo._Yhr4 > div.Z2Inc._7c9RR > div > div.l8mY4.feth3 > button > div > span > svg", chromedp.ByQuery).Do(ctx)

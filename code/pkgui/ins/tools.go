@@ -11,6 +11,7 @@ import (
 	"math/rand"
 	"net/http"
 	"os"
+	"strconv"
 	"strings"
 	"time"
 )
@@ -46,11 +47,14 @@ func ChangeIP(ipproxy string) {
 	}
 }
 
-func CountTime(num int) {
+func CountTime(num int, data map[string]string, renwushu int) {
 	if num > 0 {
 		fmt.Println(num)
+		data["INSdaojishi"] = strconv.Itoa(num)
+		renwushustr := strconv.Itoa(renwushu)
+		data["INSzhuangtai"] = "倒计时还有" + data["INSdaojishi"] + "秒,完成任务总数为:" + renwushustr
 		time.Sleep(time.Duration(1) * time.Second)
-		CountTime(num - 1)
+		CountTime(num-1, data, renwushu)
 	} else {
 		fmt.Println("倒计时完成")
 	}
