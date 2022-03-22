@@ -90,27 +90,3 @@ func ReadTiezi(path string) []string {
 
 	return tiezitest
 }
-func ReadTiezi2(path string) {
-	if ReadTieziBool {
-		fmt.Println("已经读取过数据了")
-	} else {
-		wd, err := os.Getwd()
-		if err != nil {
-			log.Println(err)
-		}
-		bytes, err := ioutil.ReadFile(wd + "/data/text/" + path)
-		if err != nil {
-			log.Println(err)
-		}
-
-		//fmt.Println("Bytes read: ", len(bytes))
-		//fmt.Println("String read: ", string(bytes))
-		str := string(bytes)
-		split := strings.Split(str, "|")
-
-		for i := 0; i < len(split); i++ {
-			Tiezi = append(Tiezi, split[i])
-		}
-		ReadTieziBool = true
-	}
-}
