@@ -39,7 +39,7 @@ func loginIns(data map[string]string) chromedp.Tasks {
 		chromedp.Navigate("https://www.instagram.com/accounts/login/"),
 
 		//2,检查是否登陆
-		checkLoginStatus(),
+		checkLoginStatus(data),
 
 		//3,如是没有登陆就输入账号密码并且登陆
 		chromedp.SendKeys("#loginForm > div > div:nth-child(1) > div > label > input", data["INSzhanghao"], chromedp.ByID),
@@ -129,14 +129,14 @@ func loadCookies(data map[string]string) chromedp.ActionFunc {
 			fmt.Println("反序列化失败")
 			return
 		}
-
+		data["INSzhuangtai"] = "读取cookies成功"
 		fmt.Println("读取cookies成功")
 		// 设置cookies
 		return network.SetCookies(cookiesParams.Cookies).Do(ctx)
 	}
 }
 
-func checkLoginStatus() chromedp.ActionFunc {
+func checkLoginStatus(data map[string]string) chromedp.ActionFunc {
 	return func(ctx context.Context) (err error) {
 		var url string
 		if err = chromedp.Evaluate(`window.location.href`, &url).Do(ctx); err != nil {
@@ -151,6 +151,7 @@ func checkLoginStatus() chromedp.ActionFunc {
 		//fmt.Println(url)
 		if strings.EqualFold(url, "https://www.instagram.com/") {
 			log.Println("已经使用cookies登陆lele")
+			data["INSzhuangtai"] = "已经使用cookies登陆"
 			//chromedp.Stop()
 			err := chromedp.Run(ctx, Renwu_Fatie())
 			if err != nil {

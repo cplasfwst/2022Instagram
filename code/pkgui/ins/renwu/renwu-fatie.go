@@ -7,6 +7,7 @@ import (
 	"github.com/chromedp/chromedp"
 	"log"
 	"os"
+	"strconv"
 )
 
 func Renwu_Fatie() chromedp.Tasks {
@@ -26,7 +27,8 @@ func Fa_First() chromedp.ActionFunc {
 		if err != nil {
 			log.Println(err)
 		}
-		filepath := []string{wd + `/data/jpg/03.jpg`}
+		//itoa将INT转string，获取图片文件的总数量，然后获取一个随机数，对应图片名字
+		filepath := []string{wd + `/data/jpg/` + strconv.Itoa(ins.GetRandNum(ins.PictureCount)) + ".jpg"}
 		fmt.Println("正在选择图片2", filepath)
 		//上传图片(总结：WaitVisible是界面看到的东西)
 		chromedp.WaitVisible(`body > div.RnEpo.gpWnf.Yx5HN > div.pbNvD > div > div > div > div.uYzeu > div._C8iK > div > div > div.qF0y9.Igw0E.rBNOH.eGOV_.ybXk5._4EzTm.kEKum > div > button`, chromedp.ByQuery).Do(ctx)
@@ -41,15 +43,18 @@ func Fa_First() chromedp.ActionFunc {
 		fmt.Println("已经完成点击1")
 		//点击继续按钮
 		chromedp.WaitVisible(`body > div.RnEpo.gpWnf.Yx5HN > div.pbNvD > div > div > div > div.qF0y9.Igw0E.IwRSH.eGOV_._4EzTm > div > div > div.qF0y9.Igw0E.rBNOH.YBx95._4EzTm.fm1AK > h1 > div`, chromedp.ByQuery).Do(ctx)
-		chromedp.Click(`body > div.RnEpo.gpWnf.Yx5HN > div.pbNvD > div > div > div > div.qF0y9.Igw0E.IwRSH.eGOV_._4EzTm > div > div > div.WaOAr._8E02J > div > button`, chromedp.ByQueryAll).Do(ctx)
+		//这个节点总是卡住的，我来做个判断
+		chromedp.Click(`document.querySelector("body > div.RnEpo.gpWnf.Yx5HN > div.pbNvD > div > div > div > div.qF0y9.Igw0E.IwRSH.eGOV_._4EzTm > div > div > div.WaOAr._8E02J > div > button")`, chromedp.ByJSPath).Do(ctx)
 		fmt.Println("已经完成点击2")
+		//这个节点总是卡住的，我来做个判断
+
 		//点击原版图像
 		chromedp.Click(`body > div.RnEpo.gpWnf.Yx5HN > div.pbNvD > div > div > div > div.uYzeu.gIMwG > div._83r9B > div > div > div > div.qF0y9.Igw0E.IwRSH.eGOV_.vwCYk.lDRO1 > div > div:nth-child(1) > button`, chromedp.ByQuery).Do(ctx)
 		//点击继续按钮
 		chromedp.Click(`body > div.RnEpo.gpWnf.Yx5HN > div.pbNvD > div > div > div > div.qF0y9.Igw0E.IwRSH.eGOV_._4EzTm > div > div > div.WaOAr._8E02J > div > button`, chromedp.ByQuery).Do(ctx)
 		fmt.Println("已经完成所有点击")
 		chromedp.SendKeys(`body > div.RnEpo.gpWnf.Yx5HN > div.pbNvD > div > div > div > div.uYzeu.gIMwG > div._83r9B > div > div > div > div:nth-child(2) > div.qF0y9.Igw0E.IwRSH.eGOV_._4EzTm > textarea`,
-			ins.Tiezi[ins.GetRandNum()], chromedp.ByQuery).Do(ctx)
+			ins.Tiezi_huashu[ins.GetRandNum(len(ins.Tiezi_huashu))], chromedp.ByQuery).Do(ctx)
 
 		fmt.Println("输入完成")
 		//点击分享按钮

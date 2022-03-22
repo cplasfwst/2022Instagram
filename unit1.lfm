@@ -28,68 +28,40 @@ object Form1: TForm1
         OnClick = Button1Click
         TabOrder = 0
       end
+      object INSzhuangtai: TStringGrid
+        Left = -4
+        Height = 472
+        Top = 0
+        Width = 636
+        ColCount = 2
+        RowCount = 1
+        TabOrder = 1
+        ColWidths = (
+          134
+          494
+        )
+        Cells = (
+          2
+          0
+          0
+          '账号名称'
+          1
+          0
+          '账号状态'
+        )
+      end
+      object Button3: TButton
+        Left = 410
+        Height = 45
+        Top = 501
+        Width = 80
+        Caption = 'Button3'
+        OnClick = Button3Click
+        TabOrder = 2
+      end
     end
     object TabSheet2: TTabSheet
       Caption = '设置'
-      ClientHeight = 574
-      ClientWidth = 1053
-      object Label1: TLabel
-        Left = 0
-        Height = 17
-        Top = 32
-        Width = 67
-        Caption = '代理地址1：'
-        ParentColor = False
-      end
-      object HostDaili: TEdit
-        Left = 96
-        Height = 25
-        Top = 32
-        Width = 146
-        OnChange = HostDailiChange
-        TabOrder = 0
-        Text = 'gate1.rola.info:1009'
-      end
-      object Label2: TLabel
-        Left = 96
-        Height = 17
-        Top = 7
-        Width = 63
-        Caption = '地址:端口号'
-        ParentColor = False
-      end
-      object Label3: TLabel
-        Left = 296
-        Height = 17
-        Top = 32
-        Width = 36
-        Caption = '账号：'
-        ParentColor = False
-      end
-      object DLzhanghao: TEdit
-        Left = 352
-        Height = 25
-        Top = 32
-        Width = 160
-        TabOrder = 1
-        Text = 'cplasfwst_dc_1'
-      end
-      object Label4: TLabel
-        Left = 560
-        Height = 17
-        Top = 32
-        Width = 36
-        Caption = '密码：'
-        ParentColor = False
-      end
-      object DLmima: TEdit
-        Left = 608
-        Height = 25
-        Top = 32
-        Width = 165
-        TabOrder = 2
-        Text = 'xz5201314789'
-      end
     end
     object TabSheet3: TTabSheet
       Caption = '随机话术'

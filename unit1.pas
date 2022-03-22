@@ -6,7 +6,7 @@ interface
 
 uses
   Classes, SysUtils, Forms, Controls, Graphics, Dialogs, StdCtrls, ComCtrls,
-  Menus, MaskEdit, uRichEdit;
+  Menus, MaskEdit, CheckLst, Grids, uRichEdit;
 
 type
 
@@ -15,20 +15,16 @@ type
   TForm1 = class(TForm)
     Button1: TButton;
     Button2: TButton;
+    Button3: TButton;
+    INSzhuangtai: TStringGrid;
     Tiezi_huashu: TEdit;
-    HostDaili: TEdit;
-    DLzhanghao: TEdit;
-    DLmima: TEdit;
-    Label1: TLabel;
-    Label2: TLabel;
-    Label3: TLabel;
-    Label4: TLabel;
     PageControl1: TPageControl;
     TabSheet1: TTabSheet;
     TabSheet2: TTabSheet;
     TabSheet3: TTabSheet;
     procedure Button1Click(Sender: TObject);
     procedure Button2Click(Sender: TObject);
+    procedure Button3Click(Sender: TObject);
     procedure HostDailiChange(Sender: TObject);
   private
 
@@ -51,6 +47,11 @@ begin
 end;
 
 procedure TForm1.Button2Click(Sender: TObject);
+begin
+
+end;
+
+procedure TForm1.Button3Click(Sender: TObject);
 begin
 
 end;
