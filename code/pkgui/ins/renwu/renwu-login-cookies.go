@@ -33,7 +33,7 @@ func loginIns(data map[string]string) chromedp.Tasks {
 			browser.PermissionTypeNotifications}),
 
 		//0,加载cookies
-		loadCookies(),
+		loadCookies(data),
 
 		//1,打开INS
 		chromedp.Navigate("https://www.instagram.com/accounts/login/"),
@@ -57,14 +57,14 @@ func loginIns(data map[string]string) chromedp.Tasks {
 		//chromedp.Click(`body > div.RnEpo.Yx5HN > div > div > div > div.mt3GC > button.aOOlW.bIiDR`,chromedp.ByQuery),
 
 		//保存登陆信息
-		saveCookies(),
+		saveCookies(data),
 	}
 
 	return login
 }
 
 // 保存Cookies
-func saveCookies() chromedp.ActionFunc {
+func saveCookies(data map[string]string) chromedp.ActionFunc {
 	return func(ctx context.Context) (err error) {
 		fmt.Println("进来了存储cookies")
 		//读取临时cookies自加
@@ -89,7 +89,7 @@ func saveCookies() chromedp.ActionFunc {
 		}
 
 		// 3. 存储到临时文件
-		if err = ioutil.WriteFile(wd+"/data/cookies/cookies.tmp", cookiesData, 0755); err != nil {
+		if err = ioutil.WriteFile(wd+"/data/cookies/"+data["cookies"], cookiesData, 0755); err != nil {
 			return
 		}
 		fmt.Println("保存cookies成功")
@@ -103,7 +103,7 @@ func saveCookies() chromedp.ActionFunc {
 }
 
 // 加载Cookies
-func loadCookies() chromedp.ActionFunc {
+func loadCookies(data map[string]string) chromedp.ActionFunc {
 	return func(ctx context.Context) (err error) {
 		//读取临时cookies自加
 		wd, err := os.Getwd()
@@ -111,13 +111,13 @@ func loadCookies() chromedp.ActionFunc {
 			log.Println(err)
 		}
 		// 如果cookies临时文件不存在则直接跳过
-		if _, _err := os.Stat(wd + "/data/cookies/cookies.tmp"); os.IsNotExist(_err) {
+		if _, _err := os.Stat(wd + "/data/cookies/" + data["cookies"]); os.IsNotExist(_err) {
 			fmt.Println("不存在缓存文件")
 			return
 		}
 
 		// 如果存在则读取cookies的数据
-		cookiesData, err := ioutil.ReadFile(wd + "/data/cookies/cookies.tmp")
+		cookiesData, err := ioutil.ReadFile(wd + "/data/cookies/" + data["cookies"])
 		if err != nil {
 			fmt.Println("读取缓存文件是吧")
 			return
