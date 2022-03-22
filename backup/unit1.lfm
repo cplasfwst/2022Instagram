@@ -12,8 +12,8 @@ object Form1: TForm1
     Height = 604
     Top = 72
     Width = 1061
-    ActivePage = TabSheet2
-    TabIndex = 1
+    ActivePage = TabSheet3
+    TabIndex = 2
     TabOrder = 0
     object TabSheet1: TTabSheet
       Caption = 'INS'
@@ -104,7 +104,7 @@ object Form1: TForm1
         Width = 146
         OnChange = HostDailiChange
         TabOrder = 0
-        Text = 'gate1.rola.info:2009'
+        Text = 'gate1.rola.info:1009'
       end
       object Label2: TLabel
         Left = 96
@@ -145,6 +145,35 @@ object Form1: TForm1
         Width = 165
         TabOrder = 2
         Text = 'xz5201314789'
+      end
+    end
+    object TabSheet3: TTabSheet
+      Caption = '随机话术'
+      ClientHeight = 574
+      ClientWidth = 1053
+      object Tiezi: TRichEdit
+        Left = 35
+        Height = 173
+        Top = 60
+        Width = 226
+        HideSelection = False
+        Lines.Strings = (
+          '1，免費足球資料提供，跟住足球分析專家的大神計劃走，基本上高達90%準確率。\n\n2，時常有足球的內幕資料分享，100%的準確率，歡迎加入我們\n\n请直接进入官网联系我们哦。 \n\n" +'
+          #9'"#足球正版#足球心水#足球分析#足球⚽️#足球鞋評價#足球內幕#足球資訊#兒童足球#孟瑞遇见足球城#足球機#足球迷#足球員#足球襪#足球衫#足球场#足球賽#足球赛#足球#足球小將翼#足球手機殼#足球料#足球鞋#足球tips#足球褲#香港足球隊#賽馬貼#賽馬#投資#馬會tips#炒散'
+        )
+        ScrollBars = ssVertical
+        TabOrder = 0
+        WantTabs = True
+        ZoomFactor = 1
+      end
+      object Button2: TButton
+        Left = 303
+        Height = 42
+        Top = 192
+        Width = 71
+        Caption = 'Button2'
+        OnClick = Button2Click
+        TabOrder = 1
       end
     end
   end

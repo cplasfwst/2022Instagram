@@ -1,4 +1,4 @@
-package ins
+package renwu
 
 import (
 	"context"
@@ -13,7 +13,7 @@ import (
 	"strings"
 )
 
-func MyTest(ctx context.Context) {
+func Login_cookies(ctx context.Context) {
 
 	err := chromedp.Run(ctx, loginIns())
 	if err != nil {

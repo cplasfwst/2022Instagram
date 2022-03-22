@@ -12,8 +12,8 @@ object Form1: TForm1
     Height = 604
     Top = 72
     Width = 1061
-    ActivePage = TabSheet2
-    TabIndex = 1
+    ActivePage = TabSheet3
+    TabIndex = 2
     TabOrder = 0
     object TabSheet1: TTabSheet
       Caption = 'INS'
@@ -145,6 +145,28 @@ object Form1: TForm1
         Width = 165
         TabOrder = 2
         Text = 'xz5201314789'
+      end
+    end
+    object TabSheet3: TTabSheet
+      Caption = '随机话术'
+      ClientHeight = 574
+      ClientWidth = 1053
+      object Button2: TButton
+        Left = 168
+        Height = 42
+        Top = 8
+        Width = 71
+        Caption = 'Button2'
+        OnClick = Button2Click
+        TabOrder = 0
+      end
+      object Tiezi_huashu: TEdit
+        Left = 40
+        Height = 25
+        Top = 13
+        Width = 99
+        TabOrder = 1
+        Text = 'tiezi_huashu.txt'
       end
     end
   end

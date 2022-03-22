@@ -2,6 +2,7 @@ package pkgui
 
 import (
 	"2022Instagram-Qunkong/code/pkgui/ins"
+	"2022Instagram-Qunkong/code/pkgui/ins/renwu"
 	"fmt"
 	"github.com/ying32/govcl/vcl"
 	"strconv"
@@ -51,14 +52,26 @@ func (f *TForm1) getGlobal() {
 	} else {
 		fmt.Println("延迟不能为空")
 	}
+
+	//随机帖子话术
+	path := f.Tiezi_huashu.Text()
+	ins.ReadTiezi(path)
 }
 
 func (f *TForm1) OnButton1Click(sender vcl.IObject) {
 	f.getGlobal()
 
-	go ins.InsInit()
+	go renwu.InsInit()
 }
 
 func (f *TForm1) OnHostDailiChange(sender vcl.IObject) {
 
+}
+
+//测试读取富文本
+func (f *TForm1) OnButton2Click(sender vcl.IObject) {
+	path := f.Tiezi_huashu.Text()
+	ins.ReadTiezi(path)
+
+	fmt.Println(ins.Tiezi[ins.GetRandNum()])
 }
