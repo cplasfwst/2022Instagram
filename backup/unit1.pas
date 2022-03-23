@@ -16,7 +16,7 @@ type
     Button1: TButton;
     Button2: TButton;
     Button3: TButton;
-    Button4: TButton;
+    IPqiehuan: TButton;
     CheckBox1: TCheckBox;
     Insyanchi: TEdit;
     Isheadless: TCheckBox;
@@ -34,7 +34,7 @@ type
     procedure Button1Click(Sender: TObject);
     procedure Button2Click(Sender: TObject);
     procedure Button3Click(Sender: TObject);
-    procedure Button4Click(Sender: TObject);
+    procedure IPqiehuanClick(Sender: TObject);
     procedure HostDailiChange(Sender: TObject);
     procedure Timer1Timer(Sender: TObject);
     procedure ZhuangTaiTimer(Sender: TObject);
@@ -68,7 +68,7 @@ begin
 
 end;
 
-procedure TForm1.Button4Click(Sender: TObject);
+procedure TForm1.IPqiehuanClick(Sender: TObject);
 begin
 
 end;

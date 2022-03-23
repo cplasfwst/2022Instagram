@@ -132,6 +132,7 @@ func ImportuserMap(filename string) ([]map[string]string, error) {
 		user["INSzhanghao"] = s[3]
 		user["INSmima"] = s[4]
 		user["cookies"] = s[5]
+		user["UserAgent"] = s[6]
 		data = append(data, user)
 	}
 

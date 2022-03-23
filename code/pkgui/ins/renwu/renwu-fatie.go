@@ -64,7 +64,7 @@ func Fa_First() chromedp.ActionFunc {
 		chromedp.SendKeys(`textarea[class="PUqUI lFzco"]`, ins.Tiezi_huashu[ins.GetRandNum(len(ins.Tiezi_huashu))], chromedp.ByQuery).Do(ctx)
 		//等待定位条出现点击分享按钮
 		chromedp.WaitVisible(`input[name="creation-location-input"]`, chromedp.NodeVisible).Do(ctx)
-		chromedp.Click(`div.WaOAr._8E02J > div > button`, chromedp.ByQueryAll).Do(ctx)
+		//chromedp.Click(`div.WaOAr._8E02J > div > button`, chromedp.ByQueryAll).Do(ctx)
 		fmt.Println("已经点击分享按钮")
 		//等待分享完成
 		chromedp.WaitVisible(`h2[class="_7UhW9      x-6xq  yUEEX    KV-D4          uL8Hv     l4b0S    "]`, chromedp.NodeVisible).Do(ctx)

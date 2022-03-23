@@ -46,7 +46,7 @@ func (f *TForm1) OnHostDailiChange(sender vcl.IObject) {
 
 }
 
-//测试读取随机话术
+//测试读取随机话术(任意测试)
 func (f *TForm1) OnButton2Click(sender vcl.IObject) {
 	path := f.Tiezi_huashu.Text()
 	ins.Tiezi_huashu = ins.ReadTiezi(path)
@@ -56,15 +56,13 @@ func (f *TForm1) OnButton2Click(sender vcl.IObject) {
 
 func (f *TForm1) OnButton3Click(sender vcl.IObject) {
 	//测试状态
-	changdu := len(ins.UserData)
-	fmt.Println(changdu)
-	//f.INSzhuangtai.SetRowCount(int32(changdu) + 1)
-	//for i := 0; i < changdu; i++ {
-	//	f.INSzhuangtai.SetCells(0, int32(i+1), ins.UserData[i]["INSzhanghao"])
-	//	f.INSzhuangtai.SetCells(1, int32(i+1), ins.UserData[i]["INSzhuangtai"])
-	//}
-	//测试其他
-	//fmt.Println(f.Isheadless.Checked())
+	//changdu := len(ins.UserData)
+	//fmt.Println(changdu)
+	ins.UserData, _ = ins.ImportuserMap("users.txt")
+	fmt.Println(ins.UserData[0]["UserAgent"])
+	fmt.Println(ins.UserData[1]["UserAgent"])
+	fmt.Println(ins.UserData[2]["UserAgent"])
+
 }
 
 func (f *TForm1) OnZhuangTaiTimer(sender vcl.IObject) {
@@ -74,10 +72,6 @@ func (f *TForm1) OnZhuangTaiTimer(sender vcl.IObject) {
 		f.INSzhuangtai.SetCells(0, int32(i+1), ins.UserData[i]["INSzhanghao"])
 		f.INSzhuangtai.SetCells(1, int32(i+1), ins.UserData[i]["INSzhuangtai"])
 	}
-
-}
-
-func (f *TForm1) OnButton4Click(sender vcl.IObject) {
 
 }
 
