@@ -8,6 +8,7 @@ import (
 	"log"
 	"os"
 	"strconv"
+	"time"
 )
 
 func Renwu_Fatie() chromedp.Tasks {
@@ -20,8 +21,8 @@ func Renwu_Fatie() chromedp.Tasks {
 
 func Fa_First() chromedp.ActionFunc {
 	return func(ctx context.Context) (err error) {
-		//寻找发动态按钮
-		chromedp.Click("#react-root > section > nav > div._8MQSO.Cx7Bp > div > div > div.ctQZg.KtFt3 > div > div:nth-child(3) > div > button > div > svg > line:nth-child(3)", chromedp.ByID).Do(ctx)
+		//寻找发动态按钮#react-root > section > nav > div._8MQSO.Cx7Bp > div > div > div.ctQZg.KtFt3 > div > div:nth-child(3)
+		chromedp.Click(`div[class="J5g42"] > div:nth-child(3)`, chromedp.ByQuery).Do(ctx)
 		//获取本机路径
 		wd, err := os.Getwd()
 		if err != nil {
@@ -31,39 +32,45 @@ func Fa_First() chromedp.ActionFunc {
 		filepath := []string{wd + `/data/jpg/` + strconv.Itoa(ins.GetRandNum(ins.PictureCount)) + ".jpg"}
 		fmt.Println("正在选择图片2", filepath)
 		//上传图片(总结：WaitVisible是界面看到的东西)
-		chromedp.WaitVisible(`body > div.RnEpo.gpWnf.Yx5HN > div.pbNvD > div > div > div > div.uYzeu > div._C8iK > div > div > div.qF0y9.Igw0E.rBNOH.eGOV_.ybXk5._4EzTm.kEKum > div > button`, chromedp.ByQuery).Do(ctx)
-		chromedp.SetUploadFiles(`body > div.RnEpo.gpWnf.Yx5HN > div.pbNvD > div > div > div > div.uYzeu > div._C8iK > form > input`, filepath, chromedp.ByQuery).Do(ctx)
+		chromedp.WaitVisible(`h2[class="_7UhW9      x-6xq  yUEEX    KV-D4          uL8Hv     l4b0S    "]`, chromedp.NodeVisible).Do(ctx)
+		//注意，这里上传图片一定要Byquery
+		chromedp.SetUploadFiles(`input[accept="image/jpeg,image/png,image/heic,image/heif,video/mp4,video/quicktime"]`, filepath, chromedp.ByQuery).Do(ctx)
 		fmt.Println("正在选择图片3")
-		chromedp.WaitEnabled(`body > div.RnEpo.gpWnf.Yx5HN > div.pbNvD > div > div > div > div.uYzeu > div._C8iK > form > input`, chromedp.ByQuery).Do(ctx)
+		//等待【將相片和影片拖曳到這裡】这几个字消失
+		chromedp.WaitEnabled(`h2[class="_7UhW9      x-6xq  yUEEX    KV-D4          uL8Hv     l4b0S    `, chromedp.ByQuery).Do(ctx)
 		fmt.Println("上传已经消失")
-		//点击（原图）缩放图片
-		chromedp.WaitVisible(`body > div.RnEpo.gpWnf.Yx5HN > div.pbNvD > div > div > div > div.uYzeu > div._C8iK > div > div > div > div.qF0y9.Igw0E.IwRSH.eGOV_._4EzTm.bkEs3.soMvl.JI_ht.DhRcB.O1flK.D8xaz.fm1AK > div > div:nth-child(2) > div > button`, chromedp.ByQuery).Do(ctx)
-		chromedp.Click(`body > div.RnEpo.gpWnf.Yx5HN > div.pbNvD > div > div > div > div.uYzeu > div._C8iK > div > div > div > div.qF0y9.Igw0E.IwRSH.eGOV_._4EzTm.bkEs3.soMvl.JI_ht.DhRcB.O1flK.D8xaz.fm1AK > div > div:nth-child(2) > div > button`, chromedp.ByQuery).Do(ctx)
-		chromedp.Click(`body > div.RnEpo.gpWnf.Yx5HN > div.pbNvD > div > div > div > div.uYzeu > div._C8iK > div > div > div > div.qF0y9.Igw0E.IwRSH.eGOV_._4EzTm.bkEs3.soMvl.JI_ht.DhRcB.O1flK.D8xaz.fm1AK > div > div.qF0y9.Igw0E.IwRSH.eGOV_._4EzTm.lC6p0.HVWg4 > div > button:nth-child(1)`, chromedp.ByQuery).Do(ctx)
-		fmt.Println("已经完成点击1")
-		//点击继续按钮
-		chromedp.WaitVisible(`body > div.RnEpo.gpWnf.Yx5HN > div.pbNvD > div > div > div > div.qF0y9.Igw0E.IwRSH.eGOV_._4EzTm > div > div > div.qF0y9.Igw0E.rBNOH.YBx95._4EzTm.fm1AK > h1 > div`, chromedp.ByQuery).Do(ctx)
-		//这个节点总是卡住的，我来做个判断
-		chromedp.Click(`document.querySelector("body > div.RnEpo.gpWnf.Yx5HN > div.pbNvD > div > div > div > div.qF0y9.Igw0E.IwRSH.eGOV_._4EzTm > div > div > div.WaOAr._8E02J > div > button")`, chromedp.ByJSPath).Do(ctx)
-		fmt.Println("已经完成点击2")
-		//这个节点总是卡住的，我来做个判断
+		time.Sleep(time.Second * 1)
+		//点击缩放图片(不缩放会造成继续无法点击) !!!注意，点击事件要配合chromedp.ByQuery，不然无法点击
+		chromedp.WaitVisible(`div.qF0y9.Igw0E.IwRSH.eGOV_._4EzTm.bkEs3.soMvl.JI_ht.DhRcB.O1flK.D8xaz.fm1AK`,
+			chromedp.NodeVisible).Do(ctx)
+		chromedp.Click(`div.qF0y9.Igw0E.IwRSH.eGOV_._4EzTm.bkEs3.soMvl.JI_ht.DhRcB.O1flK.D8xaz.fm1AK > div > div:nth-child(2) > div > button`,
+			chromedp.ByQuery).Do(ctx)
+		chromedp.Click(`div[class="YAPUk  gdFG_"] > button:nth-child(3)`, chromedp.ByQuery).Do(ctx)
+		fmt.Println("已经点击完缩放图片")
+		//点击继续(不等待按钮出现会造成继续无法点击)
+		//总结，等待的sel不能和点击的sel一样，不然卡住了
+		chromedp.WaitVisible(`div[class="WaOAr _8E02J"]`, chromedp.NodeVisible).Do(ctx)
+		chromedp.Click(`div[class="WaOAr _8E02J"] > div > button`, chromedp.ByQueryAll).Do(ctx)
+		fmt.Println("已经点击继续")
+		//选择渲染方式
+		//暂时留空用原图
 
-		//点击原版图像
-		chromedp.Click(`body > div.RnEpo.gpWnf.Yx5HN > div.pbNvD > div > div > div > div.uYzeu.gIMwG > div._83r9B > div > div > div > div.qF0y9.Igw0E.IwRSH.eGOV_.vwCYk.lDRO1 > div > div:nth-child(1) > button`, chromedp.ByQuery).Do(ctx)
-		//点击继续按钮
-		chromedp.Click(`body > div.RnEpo.gpWnf.Yx5HN > div.pbNvD > div > div > div > div.qF0y9.Igw0E.IwRSH.eGOV_._4EzTm > div > div > div.WaOAr._8E02J > div > button`, chromedp.ByQuery).Do(ctx)
-		fmt.Println("已经完成所有点击")
-		chromedp.SendKeys(`body > div.RnEpo.gpWnf.Yx5HN > div.pbNvD > div > div > div > div.uYzeu.gIMwG > div._83r9B > div > div > div > div:nth-child(2) > div.qF0y9.Igw0E.IwRSH.eGOV_._4EzTm > textarea`,
-			ins.Tiezi_huashu[ins.GetRandNum(len(ins.Tiezi_huashu))], chromedp.ByQuery).Do(ctx)
+		//点击继续(不等待按钮出现会造成继续无法点击)
+		chromedp.WaitVisible(`img[class="sQuyK atPR5"]`, chromedp.NodeVisible).Do(ctx)
+		fmt.Println("已经完成等待22222222222")
+		chromedp.Click(`div[class="WaOAr _8E02J"] > div > button`, chromedp.ByQueryAll).Do(ctx)
+		fmt.Println("已经点击继续2222222222222222222")
+		//输入文本
+		chromedp.SendKeys(`textarea[class="PUqUI lFzco"]`, ins.Tiezi_huashu[ins.GetRandNum(len(ins.Tiezi_huashu))], chromedp.ByQuery).Do(ctx)
+		//等待定位条出现点击分享按钮
+		chromedp.WaitVisible(`input[name="creation-location-input"]`, chromedp.NodeVisible).Do(ctx)
+		chromedp.Click(`div.WaOAr._8E02J > div > button`, chromedp.ByQueryAll).Do(ctx)
+		fmt.Println("已经点击分享按钮")
+		//等待分享完成
+		chromedp.WaitVisible(`h2[class="_7UhW9      x-6xq  yUEEX    KV-D4          uL8Hv     l4b0S    "]`, chromedp.NodeVisible).Do(ctx)
+		chromedp.Click(`div.NOTWr > button`, chromedp.ByQuery).Do(ctx)
+		fmt.Println("完成一轮发帖，准备等待任务")
 
-		fmt.Println("输入完成")
-		//点击分享按钮
-		chromedp.Click(`body > div.RnEpo.gpWnf.Yx5HN > div.pbNvD > div > div > div > div.qF0y9.Igw0E.IwRSH.eGOV_._4EzTm > div > div > div.WaOAr._8E02J > div > button`, chromedp.ByQuery).Do(ctx)
-
-		//等待完成
-		chromedp.WaitVisible(`body > div.RnEpo.gpWnf.Yx5HN > div.pbNvD > div > div > div > div.uYzeu > div._C8iK > div > div > div > h2`, chromedp.ByQuery).Do(ctx)
-		//点击关闭
-		chromedp.Click(`body > div.RnEpo.gpWnf.Yx5HN > div.NOTWr > button`, chromedp.ByQuery).Do(ctx)
 		return
 	}
 }

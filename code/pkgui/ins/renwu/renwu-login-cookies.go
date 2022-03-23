@@ -12,6 +12,7 @@ import (
 	"log"
 	"os"
 	"strings"
+	"time"
 )
 
 //任务入口方法有两个：1：是已经保存cookies，2：是保存cookies后准备开始任务
@@ -25,7 +26,7 @@ func Login_cookies(ctx context.Context, data map[string]string) {
 		fmt.Println("登陆错误", err)
 	}
 
-	fmt.Println("任務完成了")
+	fmt.Println("登陆CTX结束")
 
 }
 
@@ -52,8 +53,14 @@ func loginIns(data map[string]string) chromedp.Tasks {
 		chromedp.Click("#loginForm > div > div:nth-child(3) > button", chromedp.ByID),
 
 		//点击保存cookies
-		chromedp.Click(`#react-root > section > main > div > div > div > section > div > button`, chromedp.ByID),
-
+		//chromedp.Click(`#react-root > section > main > div > div > div > section > div > button`, chromedp.ByID),
+		//chromedp.Click(`#react-root > div > div > section > main > div > div > div > section > div > button`, chromedp.ByID),
+		//chromedp.Click(`.sqdOP  L3NKy   y3zKF     `, chromedp.NodeVisible),
+		//点击保存
+		chromedp.Click(`button[class="sqdOP  L3NKy   y3zKF     "]`, chromedp.ByQuery),
+		//等待进入主页
+		//等待进入主页
+		//chromedp.WaitVisible(`a[class="gmFkV"]`,chromedp.ByQuery).Do(ctx)
 		//允许通知权限这个位置导致读取cookies出错
 		//browser.GrantPermissions([]browser.PermissionType{
 		//	browser.PermissionTypeNotifications}),
@@ -75,12 +82,16 @@ func saveCookies(data map[string]string) chromedp.ActionFunc {
 		fmt.Println("进来了存储cookies")
 		//读取临时cookies自加
 		wd, err := os.Getwd()
+		//需要等待页面加载完成
+		time.Sleep(time.Second * 3)
+
 		// 等待二维码登陆
-		if err = chromedp.WaitVisible(`#react-root > section > nav > div._8MQSO.Cx7Bp > div > div > div.ctQZg.KtFt3 > div > div:nth-child(1) > div > a > svg`, chromedp.ByID).Do(ctx); err != nil {
+		//#react-root > div > div > section > nav > div._8MQSO.Cx7Bp > div > div > div.ctQZg.KtFt3 > div > div:nth-child(1) > div > a > svg
+		if err = chromedp.WaitVisible(`div[class="J5g42"]`, chromedp.NodeVisible).Do(ctx); err != nil {
 			fmt.Println("等待二维码这里出错（保存cookies的前置条件）")
 			return
 		}
-
+		fmt.Println("检测到了主页按钮")
 		// cookies的获取对应是在devTools的network面板中
 		// 1. 获取cookies
 		cookies, err := network.GetAllCookies().Do(ctx)
@@ -100,10 +111,21 @@ func saveCookies(data map[string]string) chromedp.ActionFunc {
 		}
 		fmt.Println("保存cookies成功")
 
-		err = chromedp.Run(ctx, Renwu_Fatie())
-		if err != nil {
-			fmt.Println("存cookies后评论错误", err)
+		// 等待元素加载完成
+		//chromedp.WaitVisible("#react-root", chromedp.NodeVisible).Do(ctx)
+
+		//开始启动循环任务
+		renwushu := 0
+		for true {
+			err := chromedp.Run(ctx, Renwu_Fatie())
+			if err != nil {
+				fmt.Println("check检查完是否有cookies评论错误", err)
+			}
+			renwushu++
+			ins.CountTime(ins.Insyanchi, data, renwushu)
+
 		}
+
 		return
 	}
 }

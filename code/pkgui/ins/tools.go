@@ -24,7 +24,7 @@ type DlIp struct {
 
 func ChangeIP(ipproxy string) {
 	var shuju DlIp
-	resp, err := http.Get("http://refresh.rola.info/refresh?user=" + ipproxy + "&country=ru")
+	resp, err := http.Get("http://refresh.rola.info/refresh?user=" + ipproxy + "&country=tw")
 	if err != nil {
 		fmt.Println("获取代理网址失败")
 	}
@@ -39,10 +39,10 @@ func ChangeIP(ipproxy string) {
 	json.Unmarshal(all, &shuju)
 
 	if shuju.Ret == "SUCCESS" {
-		fmt.Println("更换IP成功")
+		fmt.Println(ipproxy, "更换IP成功")
 
 	} else {
-		fmt.Println("更换IP失败")
+		fmt.Println(ipproxy, "更换IP失败")
 
 	}
 }

@@ -16,11 +16,15 @@ type
     Button1: TButton;
     Button2: TButton;
     Button3: TButton;
+    Button4: TButton;
+    CheckBox1: TCheckBox;
     Insyanchi: TEdit;
     Isheadless: TCheckBox;
     INSzhuangtai: TStringGrid;
     Label1: TLabel;
     Label2: TLabel;
+    Label3: TLabel;
+    Label4: TLabel;
     Tiezi_huashu: TEdit;
     PageControl1: TPageControl;
     TabSheet1: TTabSheet;
@@ -30,6 +34,7 @@ type
     procedure Button1Click(Sender: TObject);
     procedure Button2Click(Sender: TObject);
     procedure Button3Click(Sender: TObject);
+    procedure Button4Click(Sender: TObject);
     procedure HostDailiChange(Sender: TObject);
     procedure Timer1Timer(Sender: TObject);
     procedure ZhuangTaiTimer(Sender: TObject);
@@ -59,6 +64,11 @@ begin
 end;
 
 procedure TForm1.Button3Click(Sender: TObject);
+begin
+
+end;
+
+procedure TForm1.Button4Click(Sender: TObject);
 begin
 
 end;

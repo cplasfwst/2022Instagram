@@ -12,8 +12,8 @@ object Form1: TForm1
     Height = 604
     Top = 72
     Width = 1061
-    ActivePage = TabSheet1
-    TabIndex = 0
+    ActivePage = TabSheet2
+    TabIndex = 1
     TabOrder = 0
     object TabSheet1: TTabSheet
       Caption = 'INS'
@@ -74,6 +74,15 @@ object Form1: TForm1
         Width = 85
         NumbersOnly = True
         TabOrder = 3
+        Text = '3600'
+      end
+      object Label3: TLabel
+        Left = 877
+        Height = 17
+        Top = 15
+        Width = 12
+        Caption = '秒'
+        ParentColor = False
       end
     end
     object TabSheet2: TTabSheet
@@ -95,6 +104,33 @@ object Form1: TForm1
         Width = 34
         Caption = '是'
         TabOrder = 0
+      end
+      object Label4: TLabel
+        Left = 15
+        Height = 17
+        Top = 77
+        Width = 107
+        Caption = '所有账号IP切换到：'
+        ParentColor = False
+      end
+      object CheckBox1: TCheckBox
+        Left = 128
+        Height = 21
+        Top = 73
+        Width = 58
+        Caption = '俄罗斯'
+        Checked = True
+        State = cbChecked
+        TabOrder = 1
+      end
+      object Button4: TButton
+        Left = 72
+        Height = 41
+        Top = 104
+        Width = 102
+        Caption = '开始切换'
+        OnClick = Button4Click
+        TabOrder = 2
       end
     end
     object TabSheet3: TTabSheet
