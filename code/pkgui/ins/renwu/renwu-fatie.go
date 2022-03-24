@@ -61,7 +61,7 @@ func Fa_First() chromedp.ActionFunc {
 		chromedp.Click(`div[class="WaOAr _8E02J"] > div > button`, chromedp.ByQueryAll).Do(ctx)
 		fmt.Println("已经点击继续2222222222222222222")
 		//输入文本
-		chromedp.SendKeys(`textarea[class="PUqUI lFzco"]`, ins.Tiezi_huashu[ins.GetRandNum(len(ins.Tiezi_huashu))], chromedp.ByQuery).Do(ctx)
+		chromedp.SendKeys(`textarea[class="PUqUI lFzco"]`, ins.Tiezi_huashu[ins.GetRandNum(len(ins.Tiezi_huashu))]+ins.Inshot(), chromedp.ByQuery).Do(ctx)
 		//等待定位条出现点击分享按钮
 		chromedp.WaitVisible(`input[name="creation-location-input"]`, chromedp.NodeVisible).Do(ctx)
 		chromedp.Click(`div.WaOAr._8E02J > div > button`, chromedp.ByQueryAll).Do(ctx)

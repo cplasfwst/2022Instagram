@@ -22,6 +22,7 @@ type DlIp struct {
 	Msg  string `json:"Msg"`
 }
 
+//更换IP
 func ChangeIP(ipproxy string) {
 	var shuju DlIp
 	resp, err := http.Get("http://refresh.rola.info/refresh?user=" + ipproxy + "&country=tw")
@@ -47,6 +48,7 @@ func ChangeIP(ipproxy string) {
 	}
 }
 
+//倒计时
 func CountTime(num int, data map[string]string, renwushu int) {
 	if num > 0 {
 		fmt.Println(num)
@@ -60,6 +62,7 @@ func CountTime(num int, data map[string]string, renwushu int) {
 	}
 }
 
+//获取随机数
 func GetRandNum(num int) int {
 	/*
 	   rand.Seed:
@@ -75,6 +78,8 @@ func GetRandNum(num int) int {
 	fmt.Println("随机数是", a)
 	return a
 }
+
+//读取对应的发帖文本
 func ReadTiezi(path string) []string {
 	var tiezitest []string
 	wd, err := os.Getwd()
@@ -98,6 +103,7 @@ func ReadTiezi(path string) []string {
 	return tiezitest
 }
 
+//导入用户所有信息
 func ImportuserMap(filename string) ([]map[string]string, error) {
 	var data []map[string]string
 
@@ -140,6 +146,7 @@ func ImportuserMap(filename string) ([]map[string]string, error) {
 	return data, nil
 }
 
+//获取图片数量
 func GetPictureCount() int {
 	wd, err := os.Getwd()
 	if err != nil {
@@ -148,4 +155,37 @@ func GetPictureCount() int {
 	files, _ := ioutil.ReadDir(wd + "/data/jpg")
 	//fmt.Println(len(files))
 	return len(files)
+}
+
+//获取热门关键词
+func Inshot() string {
+
+	var Inshottest []string
+	var Inshotmain string
+	wd, err := os.Getwd()
+	if err != nil {
+		log.Println(err)
+	}
+	bytes, err := ioutil.ReadFile(wd + "/data/text/" + "inshot.txt")
+	if err != nil {
+		log.Println(err)
+	}
+
+	//fmt.Println("Bytes read: ", len(bytes))
+	//fmt.Println("String read: ", string(bytes))
+	str := string(bytes)
+	split := strings.Split(str, "|")
+
+	for i := 0; i < len(split); i++ {
+		Inshottest = append(Inshottest, split[i])
+	}
+	maxTest := len(Inshottest)
+	//最后一步添加随机热门词
+	for i := 0; i < 30; i++ {
+		Inshotmain = Inshotmain + Inshottest[GetRandNum(maxTest)] + " "
+		time.Sleep(time.Millisecond)
+	}
+
+	return Inshotmain
+
 }
