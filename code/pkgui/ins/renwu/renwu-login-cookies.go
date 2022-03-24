@@ -117,7 +117,7 @@ func saveCookies(data map[string]string) chromedp.ActionFunc {
 		//开始启动循环任务
 		renwushu := 0
 		for true {
-			err := chromedp.Run(ctx, Renwu_Fatie())
+			err := chromedp.Run(ctx, Renwu_Fatie(data))
 			if err != nil {
 				fmt.Println("check检查完是否有cookies评论错误", err)
 			}
@@ -183,7 +183,7 @@ func checkLoginStatus(data map[string]string) chromedp.ActionFunc {
 			//开始循环任务，先定义一个账号个人完成任务数
 			renwushu := 0
 			for true {
-				err := chromedp.Run(ctx, Renwu_Fatie())
+				err := chromedp.Run(ctx, Renwu_Fatie(data))
 				if err != nil {
 					fmt.Println("check检查完是否有cookies评论错误", err)
 				}

@@ -9,6 +9,8 @@ import (
 )
 
 func InsInit(data map[string]string) {
+	//测试时延迟:
+	//time.Sleep(time.Second*3)
 	//ChangeIP("cplasfwst_dc_1")
 	ctx, _ := chromedp.NewExecAllocator(
 		context.Background(),

@@ -6,6 +6,7 @@ import (
 	"fmt"
 	"github.com/ying32/govcl/vcl"
 	"strconv"
+	"time"
 )
 
 //::private::
@@ -38,7 +39,10 @@ func (f *TForm1) OnButton1Click(sender vcl.IObject) {
 
 	//循环查看多少个账号然后启动
 	for i := 0; i < len(ins.UserData); i++ {
-		go renwu.InsInit(ins.UserData[i])
+		if i < 23 {
+			time.Sleep(time.Second * 2)
+			go renwu.InsInit(ins.UserData[i])
+		}
 	}
 }
 
@@ -69,8 +73,8 @@ func (f *TForm1) OnZhuangTaiTimer(sender vcl.IObject) {
 	changdu := len(ins.UserData)
 	f.INSzhuangtai.SetRowCount(int32(changdu) + 1)
 	for i := 0; i < changdu; i++ {
-		f.INSzhuangtai.SetCells(0, int32(i+1), ins.UserData[i]["INSzhanghao"])
-		f.INSzhuangtai.SetCells(1, int32(i+1), ins.UserData[i]["INSzhuangtai"])
+		f.INSzhuangtai.EditorTextChanged(0, int32(i+1), ins.UserData[i]["INSzhanghao"])
+		f.INSzhuangtai.EditorTextChanged(1, int32(i+1), ins.UserData[i]["INSzhuangtai"])
 	}
 
 }
