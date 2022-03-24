@@ -30,27 +30,29 @@ func Fa_First() chromedp.ActionFunc {
 		}
 		//itoa将INT转string，获取图片文件的总数量，然后获取一个随机数，对应图片名字
 		filepath := []string{wd + `/data/jpg/` + strconv.Itoa(ins.GetRandNum(ins.PictureCount)) + ".jpg"}
+		//filepath := wd + `/data/jpg/` + strconv.Itoa(ins.GetRandNum(ins.PictureCount)) + ".jpg"
 		fmt.Println("正在选择图片2", filepath)
 		//上传图片(总结：WaitVisible是界面看到的东西)
 		chromedp.WaitVisible(`h2[class="_7UhW9      x-6xq  yUEEX    KV-D4          uL8Hv     l4b0S    "]`, chromedp.NodeVisible).Do(ctx)
 		//注意，这里上传图片一定要Byquery
 		chromedp.SetUploadFiles(`input[accept="image/jpeg,image/png,image/heic,image/heif,video/mp4,video/quicktime"]`, filepath, chromedp.ByQuery).Do(ctx)
+		//chromedp.SendKeys(`input[class="tb_sK"]`, filepath, chromedp.ByQuery).Do(ctx)
 		fmt.Println("正在选择图片3")
 		//等待【將相片和影片拖曳到這裡】这几个字消失
 		chromedp.WaitEnabled(`h2[class="_7UhW9      x-6xq  yUEEX    KV-D4          uL8Hv     l4b0S    `, chromedp.ByQuery).Do(ctx)
 		fmt.Println("上传已经消失")
-		time.Sleep(time.Second * 1)
+		time.Sleep(time.Second * 2)
 		//点击缩放图片(不缩放会造成继续无法点击) !!!注意，点击事件要配合chromedp.ByQuery，不然无法点击
-		chromedp.WaitVisible(`div.qF0y9.Igw0E.IwRSH.eGOV_._4EzTm.bkEs3.soMvl.JI_ht.DhRcB.O1flK.D8xaz.fm1AK`,
+		chromedp.WaitVisible(`div[class="pbNvD          "]`,
 			chromedp.NodeVisible).Do(ctx)
-		chromedp.Click(`div.qF0y9.Igw0E.IwRSH.eGOV_._4EzTm.bkEs3.soMvl.JI_ht.DhRcB.O1flK.D8xaz.fm1AK > div > div:nth-child(2) > div > button`,
+		chromedp.Click(`body > div.RnEpo.gpWnf.Yx5HN > div.pbNvD > div > div > div > div.uYzeu > div._C8iK > div > div > div > div.qF0y9.Igw0E.IwRSH.eGOV_._4EzTm.bkEs3.soMvl.JI_ht.DhRcB.O1flK.D8xaz.fm1AK > div > div:nth-child(2) > div > button`,
 			chromedp.ByQuery).Do(ctx)
-		chromedp.Click(`div[class="YAPUk  gdFG_"] > button:nth-child(3)`, chromedp.ByQuery).Do(ctx)
+		chromedp.Click(`body > div.RnEpo.gpWnf.Yx5HN > div.pbNvD > div > div > div > div.uYzeu > div._C8iK > div > div > div > div.qF0y9.Igw0E.IwRSH.eGOV_._4EzTm.bkEs3.soMvl.JI_ht.DhRcB.O1flK.D8xaz.fm1AK > div > div.qF0y9.Igw0E.IwRSH.eGOV_._4EzTm.lC6p0.HVWg4 > div > button:nth-child(3)`, chromedp.ByQuery).Do(ctx)
 		fmt.Println("已经点击完缩放图片")
-		//点击继续(不等待按钮出现会造成继续无法点击)
-		//总结，等待的sel不能和点击的sel一样，不然卡住了
+		time.Sleep(time.Second * 1)
+		//点击继续(不等待按钮出现会造成继续无法点击) //总结，等待的sel不能和点击的sel一样，不然卡住了
 		chromedp.WaitVisible(`div[class="WaOAr _8E02J"]`, chromedp.NodeVisible).Do(ctx)
-		chromedp.Click(`div[class="WaOAr _8E02J"] > div > button`, chromedp.ByQueryAll).Do(ctx)
+		chromedp.Click(`div[class="WaOAr _8E02J"] > div > button`, chromedp.ByQuery).Do(ctx)
 		fmt.Println("已经点击继续")
 		//选择渲染方式
 		//暂时留空用原图
@@ -58,7 +60,8 @@ func Fa_First() chromedp.ActionFunc {
 		//点击继续(不等待按钮出现会造成继续无法点击)
 		chromedp.WaitVisible(`img[class="sQuyK atPR5"]`, chromedp.NodeVisible).Do(ctx)
 		fmt.Println("已经完成等待22222222222")
-		chromedp.Click(`div[class="WaOAr _8E02J"] > div > button`, chromedp.ByQueryAll).Do(ctx)
+		time.Sleep(time.Second * 1) //添加了延迟修复下卡住
+		chromedp.Click(`div[class="WaOAr _8E02J"] > div > button`, chromedp.ByQuery).Do(ctx)
 		fmt.Println("已经点击继续2222222222222222222")
 		//输入文本
 		chromedp.SendKeys(`textarea[class="PUqUI lFzco"]`, ins.Tiezi_huashu[ins.GetRandNum(len(ins.Tiezi_huashu))]+ins.Inshot(), chromedp.ByQuery).Do(ctx)
