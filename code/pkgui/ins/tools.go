@@ -13,6 +13,7 @@ import (
 	"os"
 	"strconv"
 	"strings"
+	"sync"
 	"time"
 )
 
@@ -49,12 +50,14 @@ func ChangeIP(ipproxy string) {
 }
 
 //倒计时
-func CountTime(num int, data map[string]string, renwushu int) {
+func CountTime(num int, data sync.Map, renwushu int) {
 	if num > 0 {
 		fmt.Println(num)
-		data["INSdaojishi"] = strconv.Itoa(num)
+		//data["INSdaojishi"] = strconv.Itoa(num)
+		data.Store("INSdaojishi", strconv.Itoa(num))
 		renwushustr := strconv.Itoa(renwushu)
-		data["INSzhuangtai"] = "倒计时还有" + data["INSdaojishi"] + "秒,完成任务总数为:" + renwushustr
+		//data["INSzhuangtai"] = "倒计时还有" + data["INSdaojishi"] + "秒,完成任务总数为:" + renwushustr
+		data.Store("INSzhuangtai", "倒计时还有"+MapRead(data, "INSdaojishi")+"秒,完成任务总数为:"+renwushustr)
 		time.Sleep(time.Duration(1) * time.Second)
 		CountTime(num-1, data, renwushu)
 	} else {
@@ -104,8 +107,8 @@ func ReadTiezi(path string) []string {
 }
 
 //导入用户所有信息
-func ImportuserMap(filename string) ([]map[string]string, error) {
-	var data []map[string]string
+func ImportuserMap(filename string) ([]sync.Map, error) {
+	var data []sync.Map
 
 	wd, err := os.Getwd()
 	if err != nil {
@@ -131,14 +134,14 @@ func ImportuserMap(filename string) ([]map[string]string, error) {
 		str := string(line)
 		s := strings.Split(str, "----")
 
-		user := make(map[string]string)
-		user["DLhost"] = s[0]
-		user["DLzhanghao"] = s[1]
-		user["DLmima"] = s[2]
-		user["INSzhanghao"] = s[3]
-		user["INSmima"] = s[4]
-		user["cookies"] = s[5]
-		user["UserAgent"] = s[6]
+		var user sync.Map
+		user.Store("DLhost", s[0])
+		user.Store("DLzhanghao", s[1])
+		user.Store("DLmima", s[2])
+		user.Store("INSzhanghao", s[3])
+		user.Store("INSmima", s[4])
+		user.Store("cookies", s[5])
+		user.Store("UserAgent", s[6])
 		data = append(data, user)
 	}
 
@@ -188,4 +191,72 @@ func Inshot() string {
 
 	return Inshotmain
 
+}
+
+//读取sync.Map的值并且转化为string
+func MapRead(data sync.Map, key string) string {
+	load, ok := data.Load(key)
+	if ok != true {
+
+	}
+
+	s := strval(load)
+
+	return s
+}
+
+func strval(value interface{}) string {
+	// interface 转 string
+	var key string
+	if value == nil {
+		return key
+	}
+
+	switch value.(type) {
+	case float64:
+		ft := value.(float64)
+		key = strconv.FormatFloat(ft, 'f', -1, 64)
+	case float32:
+		ft := value.(float32)
+		key = strconv.FormatFloat(float64(ft), 'f', -1, 64)
+	case int:
+		it := value.(int)
+		key = strconv.Itoa(it)
+	case uint:
+		it := value.(uint)
+		key = strconv.Itoa(int(it))
+	case int8:
+		it := value.(int8)
+		key = strconv.Itoa(int(it))
+	case uint8:
+		it := value.(uint8)
+		key = strconv.Itoa(int(it))
+	case int16:
+		it := value.(int16)
+		key = strconv.Itoa(int(it))
+	case uint16:
+		it := value.(uint16)
+		key = strconv.Itoa(int(it))
+	case int32:
+		it := value.(int32)
+		key = strconv.Itoa(int(it))
+	case uint32:
+		it := value.(uint32)
+		key = strconv.Itoa(int(it))
+	case int64:
+		it := value.(int64)
+		key = strconv.FormatInt(it, 10)
+	case uint64:
+		it := value.(uint64)
+		key = strconv.FormatUint(it, 10)
+	case string:
+		key = value.(string)
+	case []byte:
+		key = string(value.([]byte))
+	default:
+		newValue, _ := json.Marshal(value)
+		key = string(newValue)
+	}
+
+	return key
 }

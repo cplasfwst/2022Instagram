@@ -6,9 +6,10 @@ import (
 	"github.com/chromedp/cdproto/fetch"
 	"github.com/chromedp/chromedp"
 	"log"
+	"sync"
 )
 
-func InsInit(data map[string]string) {
+func InsInit(data sync.Map) {
 	//测试时延迟:
 	//time.Sleep(time.Second*3)
 	//ChangeIP("cplasfwst_dc_1")
@@ -20,13 +21,13 @@ func InsInit(data map[string]string) {
 		append(
 			chromedp.DefaultExecAllocatorOptions[:],
 			chromedp.Flag("headless", ins.Isheadless),
-			chromedp.ProxyServer(data["DLhost"]),
+			chromedp.ProxyServer(ins.MapRead(data, "DLhost")),
 			chromedp.Flag("proxy-bypass-list", "<-loopback>"),
 			//chromedp.Flag("disable-web-security", true),
 			//chromedp.Flag("disable-popup-blocking", true),
 			//本机：Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/98.0.4758.102 Safari/537.36
 			//chromedp.UserAgent("Mozilla/5.0 (Linux; Android 6.0; Nexus 5 Build/MRA58N) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/98.0.4758.102 Mobile Safari/537.36"),
-			chromedp.UserAgent(data["UserAgent"]),
+			chromedp.UserAgent(ins.MapRead(data, "UserAgent")),
 		)...,
 	)
 
@@ -50,8 +51,8 @@ func InsInit(data map[string]string) {
 					_ = chromedp.Run(ctx,
 						fetch.ContinueWithAuth(ev.RequestID, &fetch.AuthChallengeResponse{
 							Response: fetch.AuthChallengeResponseResponseProvideCredentials,
-							Username: data["DLzhanghao"],
-							Password: data["DLmima"],
+							Username: ins.MapRead(data, "DLzhanghao"),
+							Password: ins.MapRead(data, "DLmima"),
 						}),
 						// Chrome will remember the credential for the current instance,
 						// so we can disable the fetch domain once credential is provided.

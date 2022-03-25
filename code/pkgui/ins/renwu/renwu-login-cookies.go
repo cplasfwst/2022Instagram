@@ -12,6 +12,7 @@ import (
 	"log"
 	"os"
 	"strings"
+	"sync"
 	"time"
 )
 
@@ -19,7 +20,7 @@ import (
 //1,checkLoginStatus
 //2,saveCookies
 
-func Login_cookies(ctx context.Context, data map[string]string) {
+func Login_cookies(ctx context.Context, data sync.Map) {
 
 	err := chromedp.Run(ctx, loginIns(data))
 	if err != nil {
@@ -30,7 +31,7 @@ func Login_cookies(ctx context.Context, data map[string]string) {
 
 }
 
-func loginIns(data map[string]string) chromedp.Tasks {
+func loginIns(data sync.Map) chromedp.Tasks {
 	login := chromedp.Tasks{
 		//加载代理
 		fetch.Enable().WithHandleAuthRequests(true),
@@ -48,8 +49,8 @@ func loginIns(data map[string]string) chromedp.Tasks {
 		checkLoginStatus(data),
 
 		//3,如是没有登陆就输入账号密码并且登陆
-		chromedp.SendKeys("#loginForm > div > div:nth-child(1) > div > label > input", data["INSzhanghao"], chromedp.ByID),
-		chromedp.SendKeys("#loginForm > div > div:nth-child(2) > div > label > input", data["INSmima"], chromedp.ByID),
+		chromedp.SendKeys("#loginForm > div > div:nth-child(1) > div > label > input", ins.MapRead(data, "INSzhanghao"), chromedp.ByID),
+		chromedp.SendKeys("#loginForm > div > div:nth-child(2) > div > label > input", ins.MapRead(data, "INSmima"), chromedp.ByID),
 		chromedp.Click("#loginForm > div > div:nth-child(3) > button", chromedp.ByID),
 
 		//点击保存cookies
@@ -76,7 +77,7 @@ func loginIns(data map[string]string) chromedp.Tasks {
 }
 
 // 保存Cookies
-func saveCookies(data map[string]string) chromedp.ActionFunc {
+func saveCookies(data sync.Map) chromedp.ActionFunc {
 	return func(ctx context.Context) (err error) {
 		//var gebierenwu int
 		fmt.Println("进来了存储cookies")
@@ -106,7 +107,7 @@ func saveCookies(data map[string]string) chromedp.ActionFunc {
 		}
 
 		// 3. 存储到临时文件
-		if err = ioutil.WriteFile(wd+"/data/cookies/"+data["cookies"], cookiesData, 0755); err != nil {
+		if err = ioutil.WriteFile(wd+"/data/cookies/"+ins.MapRead(data, "cookies"), cookiesData, 0755); err != nil {
 			return
 		}
 		fmt.Println("保存cookies成功")
@@ -131,7 +132,7 @@ func saveCookies(data map[string]string) chromedp.ActionFunc {
 }
 
 // 加载Cookies
-func loadCookies(data map[string]string) chromedp.ActionFunc {
+func loadCookies(data sync.Map) chromedp.ActionFunc {
 	return func(ctx context.Context) (err error) {
 		//读取临时cookies自加
 		wd, err := os.Getwd()
@@ -139,13 +140,13 @@ func loadCookies(data map[string]string) chromedp.ActionFunc {
 			log.Println(err)
 		}
 		// 如果cookies临时文件不存在则直接跳过
-		if _, _err := os.Stat(wd + "/data/cookies/" + data["cookies"]); os.IsNotExist(_err) {
+		if _, _err := os.Stat(wd + "/data/cookies/" + ins.MapRead(data, "cookies")); os.IsNotExist(_err) {
 			fmt.Println("不存在缓存文件")
 			return
 		}
 
 		// 如果存在则读取cookies的数据
-		cookiesData, err := ioutil.ReadFile(wd + "/data/cookies/" + data["cookies"])
+		cookiesData, err := ioutil.ReadFile(wd + "/data/cookies/" + ins.MapRead(data, "cookies"))
 		if err != nil {
 			fmt.Println("读取缓存文件是吧")
 			return
@@ -157,14 +158,15 @@ func loadCookies(data map[string]string) chromedp.ActionFunc {
 			fmt.Println("反序列化失败")
 			return
 		}
-		data["INSzhuangtai"] = "读取cookies成功"
+		//data["INSzhuangtai"] = "读取cookies成功"
+		data.Store("INSzhuangtai", "读取cookies成功")
 		fmt.Println("读取cookies成功")
 		// 设置cookies
 		return network.SetCookies(cookiesParams.Cookies).Do(ctx)
 	}
 }
 
-func checkLoginStatus(data map[string]string) chromedp.ActionFunc {
+func checkLoginStatus(data sync.Map) chromedp.ActionFunc {
 	return func(ctx context.Context) (err error) {
 		var url string
 		if err = chromedp.Evaluate(`window.location.href`, &url).Do(ctx); err != nil {
@@ -179,7 +181,8 @@ func checkLoginStatus(data map[string]string) chromedp.ActionFunc {
 		//fmt.Println(url)
 		if strings.EqualFold(url, "https://www.instagram.com/") {
 			log.Println("已经使用cookies登陆lele")
-			data["INSzhuangtai"] = "已经使用cookies登陆"
+			//data["INSzhuangtai"] = "已经使用cookies登陆"
+			data.Store("INSzhuangtai", "已经使用cookies登陆")
 			//开始循环任务，先定义一个账号个人完成任务数
 			renwushu := 0
 			for true {

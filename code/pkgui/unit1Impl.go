@@ -63,9 +63,9 @@ func (f *TForm1) OnButton3Click(sender vcl.IObject) {
 	//changdu := len(ins.UserData)
 	//fmt.Println(changdu)
 	ins.UserData, _ = ins.ImportuserMap("users.txt")
-	fmt.Println(ins.UserData[0]["UserAgent"])
-	fmt.Println(ins.UserData[1]["UserAgent"])
-	fmt.Println(ins.UserData[2]["UserAgent"])
+	fmt.Println(ins.MapRead(ins.UserData[0], "UserAgent"))
+	fmt.Println(ins.MapRead(ins.UserData[16], "UserAgent"))
+	fmt.Println(ins.MapRead(ins.UserData[54], "UserAgent"))
 
 }
 
@@ -73,8 +73,8 @@ func (f *TForm1) OnZhuangTaiTimer(sender vcl.IObject) {
 	changdu := len(ins.UserData)
 	f.INSzhuangtai.SetRowCount(int32(changdu) + 1)
 	for i := 0; i < changdu; i++ {
-		f.INSzhuangtai.EditorTextChanged(0, int32(i+1), ins.UserData[i]["INSzhanghao"])
-		f.INSzhuangtai.EditorTextChanged(1, int32(i+1), ins.UserData[i]["INSzhuangtai"])
+		f.INSzhuangtai.EditorTextChanged(0, int32(i+1), ins.MapRead(ins.UserData[i], "INSzhanghao"))
+		f.INSzhuangtai.EditorTextChanged(1, int32(i+1), ins.MapRead(ins.UserData[i], "INSzhuangtai"))
 	}
 
 }
@@ -87,7 +87,7 @@ func (f *TForm1) OnIPqiehuanClick(sender vcl.IObject) {
 	fmt.Println(len(ins.UserData))
 
 	for i := 0; i < len(ins.UserData); i++ {
-		ins.ChangeIP(ins.UserData[i]["DLzhanghao"])
+		ins.ChangeIP(ins.MapRead(ins.UserData[i], "DLzhanghao"))
 	}
 
 }

@@ -8,10 +8,11 @@ import (
 	"log"
 	"os"
 	"strconv"
+	"sync"
 	"time"
 )
 
-func Renwu_Fatie(data map[string]string) chromedp.Tasks {
+func Renwu_Fatie(data sync.Map) chromedp.Tasks {
 	fatie := chromedp.Tasks{
 		//第一步
 		Fa_First(data),
@@ -19,7 +20,7 @@ func Renwu_Fatie(data map[string]string) chromedp.Tasks {
 	return fatie
 }
 
-func Fa_First(data map[string]string) chromedp.ActionFunc {
+func Fa_First(data sync.Map) chromedp.ActionFunc {
 	return func(ctx context.Context) (err error) {
 		//寻找发动态按钮#react-root > section > nav > div._8MQSO.Cx7Bp > div > div > div.ctQZg.KtFt3 > div > div:nth-child(3)
 		chromedp.Click(`div[class="J5g42"] > div:nth-child(3)`, chromedp.ByQuery).Do(ctx)
@@ -42,7 +43,8 @@ func Fa_First(data map[string]string) chromedp.ActionFunc {
 		//chromedp.WaitEnabled(`h2[class="_7UhW9      x-6xq  yUEEX    KV-D4          uL8Hv     l4b0S    `, chromedp.ByQuery).Do(ctx) 这里我做了个BUG  擦
 
 		fmt.Println("上传已经消失")
-		data["INSzhuangtai"] = "已经完成图片上传"
+		//data["INSzhuangtai"] = "已经完成图片上传"
+		data.Store("INSzhuangtai", "已经完成图片上传")
 		time.Sleep(time.Second * 5)
 		//点击缩放图片(不缩放会造成继续无法点击) !!!注意，点击事件要配合chromedp.ByQuery，不然无法点击
 		chromedp.WaitVisible(`div[class="pbNvD          "]`,
@@ -51,12 +53,14 @@ func Fa_First(data map[string]string) chromedp.ActionFunc {
 			chromedp.ByQuery).Do(ctx)
 		time.Sleep(time.Second * 1)
 		chromedp.Click(`body > div.RnEpo.gpWnf.Yx5HN > div.pbNvD > div > div > div > div.uYzeu > div._C8iK > div > div > div > div.qF0y9.Igw0E.IwRSH.eGOV_._4EzTm.bkEs3.soMvl.JI_ht.DhRcB.O1flK.D8xaz.fm1AK > div > div.qF0y9.Igw0E.IwRSH.eGOV_._4EzTm.lC6p0.HVWg4 > div > button:nth-child(3)`, chromedp.ByQuery).Do(ctx)
-		data["INSzhuangtai"] = "已经点击完缩放图片"
+		//data["INSzhuangtai"] = "已经点击完缩放图片"
+		data.Store("INSzhuangtai", "已经点击完缩放图片")
 		//fmt.Println("已经点击完缩放图片")
 		time.Sleep(time.Second * 5)
 		//点击继续(不等待按钮出现会造成继续无法点击) //总结，等待的sel不能和点击的sel一样，不然卡住了
 		chromedp.WaitVisible(`body > div.RnEpo.gpWnf.Yx5HN`, chromedp.NodeVisible).Do(ctx)
-		data["INSzhuangtai"] = "准备点击继续"
+		//data["INSzhuangtai"] = "准备点击继续"
+		data.Store("INSzhuangtai", "准备点击继续")
 		chromedp.Click(`body > div.RnEpo.gpWnf.Yx5HN > div.pbNvD > div > div > div > div.qF0y9.Igw0E.IwRSH.eGOV_._4EzTm > div > div > div.WaOAr._8E02J > div > button`, chromedp.ByQuery).Do(ctx)
 		fmt.Println("已经点击继续")
 		//选择渲染方式
@@ -72,8 +76,9 @@ func Fa_First(data map[string]string) chromedp.ActionFunc {
 		chromedp.SendKeys(`textarea[class="PUqUI lFzco"]`, ins.Tiezi_huashu[ins.GetRandNum(len(ins.Tiezi_huashu))]+ins.Inshot(), chromedp.ByQuery).Do(ctx)
 		//等待定位条出现点击分享按钮
 		chromedp.WaitVisible(`input[name="creation-location-input"]`, chromedp.NodeVisible).Do(ctx)
-		chromedp.Click(`div.WaOAr._8E02J > div > button`, chromedp.ByQueryAll).Do(ctx)
-		data["INSzhuangtai"] = "输入文本完成,并且已经点击分享按钮"
+		//chromedp.Click(`div.WaOAr._8E02J > div > button`, chromedp.ByQueryAll).Do(ctx)
+		//data["INSzhuangtai"] = "输入文本完成,并且已经点击分享按钮"
+		data.Store("INSzhuangtai", "输入文本完成,并且已经点击分享按钮")
 		fmt.Println("已经点击分享按钮")
 		//等待分享完成
 		chromedp.WaitVisible(`h2[class="_7UhW9      x-6xq  yUEEX    KV-D4          uL8Hv     l4b0S    "]`, chromedp.NodeVisible).Do(ctx)

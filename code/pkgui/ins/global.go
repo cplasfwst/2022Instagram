@@ -1,5 +1,7 @@
 package ins
 
+import "sync"
+
 //完成任务总数和倒计时
 var Renwu int
 var Insyanchi int
@@ -14,4 +16,4 @@ var PictureCount int
 var Tiezi_huashu []string
 
 //账号密码文本
-var UserData []map[string]string
+var UserData []sync.Map
