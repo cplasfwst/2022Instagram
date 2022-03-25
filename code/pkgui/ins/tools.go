@@ -52,7 +52,7 @@ func ChangeIP(ipproxy string) {
 //倒计时
 func CountTime(num int, data sync.Map, renwushu int) {
 	if num > 0 {
-		fmt.Println(num)
+		//fmt.Println(num)
 		//data["INSdaojishi"] = strconv.Itoa(num)
 		data.Store("INSdaojishi", strconv.Itoa(num))
 		renwushustr := strconv.Itoa(renwushu)
@@ -63,6 +63,7 @@ func CountTime(num int, data sync.Map, renwushu int) {
 	} else {
 		fmt.Println("倒计时完成")
 	}
+	return
 }
 
 //获取随机数
@@ -75,10 +76,10 @@ func GetRandNum(num int) int {
 	       当前操作系统时间的毫秒值
 	*/
 	rand.Seed(time.Now().UnixNano())
-	//fmt.Println("数组的长度是",len(Tiezi_huashu))
+	//fmt.Println("数组的长度是",len(Tiezi_huashu))  num是随机数的最大值
 	a := rand.Intn(num) //实际随机生成的数字范围[0,99]
 	//fmt.Printf("a的类型为[%T],a的随机数值为:[%d]\n", a, a)
-	fmt.Println("随机数是", a)
+	//fmt.Println("随机数是", a)
 	return a
 }
 

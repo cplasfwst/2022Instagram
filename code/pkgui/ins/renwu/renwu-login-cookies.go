@@ -122,13 +122,14 @@ func saveCookies(data sync.Map) chromedp.ActionFunc {
 		//开始启动循环任务
 		renwushu := 0
 		for true {
+			//随机延迟一下账号
+			time.Sleep(time.Second * time.Duration(ins.GetRandNum(10)))
 			err := chromedp.Run(ctx, Renwu_Fatie(data))
 			if err != nil {
 				fmt.Println("check检查完是否有cookies评论错误", err)
 			}
 			renwushu++
 			ins.CountTime(ins.Insyanchi, data, renwushu)
-
 		}
 
 		return
@@ -191,6 +192,8 @@ func checkLoginStatus(data sync.Map) chromedp.ActionFunc {
 			//开始循环任务，先定义一个账号个人完成任务数
 			renwushu := 0
 			for true {
+				//随机延迟一下账号
+				time.Sleep(time.Second * time.Duration(ins.GetRandNum(10)))
 				err := chromedp.Run(ctx, Renwu_Fatie(data))
 				if err != nil {
 					fmt.Println("check检查完是否有cookies评论错误", err)
