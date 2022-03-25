@@ -12,8 +12,8 @@ object Form1: TForm1
     Height = 604
     Top = 72
     Width = 1061
-    ActivePage = TabSheet1
-    TabIndex = 0
+    ActivePage = TabSheet3
+    TabIndex = 2
     TabOrder = 0
     object TabSheet1: TTabSheet
       Caption = 'INS'
@@ -195,6 +195,39 @@ object Form1: TForm1
         Width = 99
         TabOrder = 1
         Text = 'tiezi_huashu.txt'
+      end
+      object Label8: TLabel
+        Left = 9
+        Height = 17
+        Top = 105
+        Width = 96
+        Caption = '固定热门关键字：'
+        ParentColor = False
+      end
+      object INSgudinghot: TEdit
+        Left = 112
+        Height = 25
+        Top = 101
+        Width = 146
+        TabOrder = 2
+        Text = '#足球 #足球貼士'
+      end
+      object Label9: TLabel
+        Left = 9
+        Height = 17
+        Top = 158
+        Width = 96
+        Caption = '热门关键字数量：'
+        ParentColor = False
+      end
+      object INSsuijihot: TEdit
+        Left = 112
+        Height = 25
+        Top = 152
+        Width = 146
+        NumbersOnly = True
+        TabOrder = 3
+        Text = '30'
       end
     end
   end

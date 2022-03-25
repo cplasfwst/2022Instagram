@@ -6,7 +6,6 @@ import (
 	"fmt"
 	"github.com/ying32/govcl/vcl"
 	"strconv"
-	"time"
 )
 
 //::private::
@@ -28,6 +27,10 @@ func (f *TForm1) getGlobal() {
 	ins.PictureCount = ins.GetPictureCount()
 	//开启状态更新器
 	f.ZhuangTai.SetEnabled(true)
+	//获取固定热门关键词和关键词数量
+	ins.INSgudinghot = f.INSgudinghot.Text()
+	shuliang, _ := strconv.Atoi(f.INSsuijihot.Text())
+	ins.INSsuijihot = shuliang
 }
 
 func (f *TForm1) OnButton1Click(sender vcl.IObject) {
@@ -39,7 +42,6 @@ func (f *TForm1) OnButton1Click(sender vcl.IObject) {
 
 	//循环查看多少个账号然后启动
 	for i := 0; i < len(ins.UserData); i++ {
-		time.Sleep(time.Second * 20)
 		go renwu.InsInit(ins.UserData[i])
 
 		//if i >= 23 && i < 46 {

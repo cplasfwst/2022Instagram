@@ -166,6 +166,7 @@ func Inshot() string {
 
 	var Inshottest []string
 	var Inshotmain string
+	Inshotmain = INSgudinghot
 	wd, err := os.Getwd()
 	if err != nil {
 		log.Println(err)
@@ -185,7 +186,7 @@ func Inshot() string {
 	}
 	maxTest := len(Inshottest)
 	//最后一步添加随机热门词
-	for i := 0; i < 30; i++ {
+	for i := 0; i < INSsuijihot; i++ {
 		Inshotmain = Inshotmain + Inshottest[GetRandNum(maxTest)] + " "
 		time.Sleep(time.Millisecond)
 	}

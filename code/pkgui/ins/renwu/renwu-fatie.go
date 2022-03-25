@@ -60,7 +60,7 @@ func Fa_First(data sync.Map) chromedp.ActionFunc {
 		chromedp.Click(`document.querySelector("body > div.RnEpo.gpWnf.Yx5HN > div.pbNvD > div > div > div > div.uYzeu > div._C8iK > div > div > div > div.qF0y9.Igw0E.IwRSH.eGOV_._4EzTm.bkEs3.soMvl.JI_ht.DhRcB.O1flK.D8xaz.fm1AK > div > div:nth-child(2) > div > button")`,
 			chromedp.ByJSPath).Do(ctx)
 		time.Sleep(time.Second * 5)
-		chromedp.Click(`body > div.RnEpo.gpWnf.Yx5HN > div.pbNvD > div > div > div > div.uYzeu > div._C8iK > div > div > div > div.qF0y9.Igw0E.IwRSH.eGOV_._4EzTm.bkEs3.soMvl.JI_ht.DhRcB.O1flK.D8xaz.fm1AK > div > div.qF0y9.Igw0E.IwRSH.eGOV_._4EzTm.lC6p0.HVWg4 > div > button:nth-child(3)`, chromedp.ByQuery).Do(ctx)
+		chromedp.Click(`document.querySelector("body > div.RnEpo.gpWnf.Yx5HN > div.pbNvD > div > div > div > div.uYzeu > div._C8iK > div > div > div > div.qF0y9.Igw0E.IwRSH.eGOV_._4EzTm.bkEs3.soMvl.JI_ht.DhRcB.O1flK.D8xaz.fm1AK > div > div.qF0y9.Igw0E.IwRSH.eGOV_._4EzTm.lC6p0.HVWg4 > div > button:nth-child(3)")`, chromedp.ByJSPath).Do(ctx)
 		//data["INSzhuangtai"] = "已经点击完缩放图片"
 		data.Store("INSzhuangtai", "已经点击完缩放图片")
 		//fmt.Println("已经点击完缩放图片")
@@ -69,8 +69,7 @@ func Fa_First(data sync.Map) chromedp.ActionFunc {
 		chromedp.WaitVisible(`body > div.RnEpo.gpWnf.Yx5HN`, chromedp.NodeVisible).Do(ctx)
 		//data["INSzhuangtai"] = "准备点击继续"
 		data.Store("INSzhuangtai", "准备点击继续")
-
-		chromedp.Click(`body > div.RnEpo.gpWnf.Yx5HN > div.pbNvD > div > div > div > div.qF0y9.Igw0E.IwRSH.eGOV_._4EzTm > div > div > div.WaOAr._8E02J > div > button`, chromedp.ByQuery).Do(ctx)
+		chromedp.Click(`document.querySelector("body > div.RnEpo.gpWnf.Yx5HN > div.pbNvD > div > div > div > div.qF0y9.Igw0E.IwRSH.eGOV_._4EzTm > div > div > div.WaOAr._8E02J > div > button")`, chromedp.ByJSPath).Do(ctx)
 		data.Store("INSzhuangtai", "已经点击继续111")
 		//选择渲染方式
 		//暂时留空用原图

@@ -17,3 +17,7 @@ var Tiezi_huashu []string
 
 //账号密码文本
 var UserData []sync.Map
+
+//关于热门词
+var INSgudinghot string
+var INSsuijihot int

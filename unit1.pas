@@ -16,6 +16,10 @@ type
     Button1: TButton;
     Button2: TButton;
     Button3: TButton;
+    INSsuijihot: TEdit;
+    INSgudinghot: TEdit;
+    Label8: TLabel;
+    Label9: TLabel;
     Zhiding: TButton;
     Zhidingnum: TEdit;
     IPqiehuan: TButton;

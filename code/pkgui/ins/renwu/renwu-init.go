@@ -7,10 +7,12 @@ import (
 	"github.com/chromedp/chromedp"
 	"log"
 	"sync"
+	"time"
 )
 
 func InsInit(data sync.Map) {
 	//测试时延迟:
+	time.Sleep(time.Second * 3)
 	//time.Sleep(time.Second*3)
 	//ChangeIP("cplasfwst_dc_1")
 	ctx, _ := chromedp.NewExecAllocator(

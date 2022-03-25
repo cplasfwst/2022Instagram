@@ -17,7 +17,7 @@ type
     Button2: TButton;
     Button3: TButton;
     Zhiding: TButton;
-    Edit1: TEdit;
+    Zhidingnum: TEdit;
     IPqiehuan: TButton;
     CheckBox1: TCheckBox;
     Insyanchi: TEdit;
