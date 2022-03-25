@@ -91,3 +91,13 @@ func (f *TForm1) OnIPqiehuanClick(sender vcl.IObject) {
 	}
 
 }
+
+//指定运行第几个账号
+func (f *TForm1) OnZhidingClick(sender vcl.IObject) {
+	f.getGlobal()
+	//获取账号文本
+	num := f.Zhidingnum.Text()
+	atoi, _ := strconv.Atoi(num)
+
+	go renwu.InsInit(ins.UserData[atoi])
+}

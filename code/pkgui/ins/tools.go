@@ -57,7 +57,7 @@ func CountTime(num int, data sync.Map, renwushu int) {
 		data.Store("INSdaojishi", strconv.Itoa(num))
 		renwushustr := strconv.Itoa(renwushu)
 		//data["INSzhuangtai"] = "倒计时还有" + data["INSdaojishi"] + "秒,完成任务总数为:" + renwushustr
-		data.Store("INSzhuangtai", "倒计时还有"+MapRead(data, "INSdaojishi")+"秒,完成任务总数为:"+renwushustr)
+		data.Store("INSzhuangtai", "倒计时还有"+MapRead(data, "INSdaojishi")+"秒,完成任务总数为:"+renwushustr+"违规次数是："+MapRead(data, "INSweigui"))
 		time.Sleep(time.Duration(1) * time.Second)
 		CountTime(num-1, data, renwushu)
 	} else {
@@ -142,6 +142,7 @@ func ImportuserMap(filename string) ([]sync.Map, error) {
 		user.Store("INSmima", s[4])
 		user.Store("cookies", s[5])
 		user.Store("UserAgent", s[6])
+		user.Store("INSweigui", 0)
 		data = append(data, user)
 	}
 

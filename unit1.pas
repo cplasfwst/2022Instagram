@@ -16,6 +16,8 @@ type
     Button1: TButton;
     Button2: TButton;
     Button3: TButton;
+    Zhiding: TButton;
+    Zhidingnum: TEdit;
     IPqiehuan: TButton;
     CheckBox1: TCheckBox;
     Insyanchi: TEdit;
@@ -25,6 +27,9 @@ type
     Label2: TLabel;
     Label3: TLabel;
     Label4: TLabel;
+    Label5: TLabel;
+    Label6: TLabel;
+    Label7: TLabel;
     Tiezi_huashu: TEdit;
     PageControl1: TPageControl;
     TabSheet1: TTabSheet;
@@ -37,6 +42,7 @@ type
     procedure IPqiehuanClick(Sender: TObject);
     procedure HostDailiChange(Sender: TObject);
     procedure Timer1Timer(Sender: TObject);
+    procedure ZhidingClick(Sender: TObject);
     procedure ZhuangTaiTimer(Sender: TObject);
   private
 
@@ -79,6 +85,11 @@ begin
 end;
 
 procedure TForm1.Timer1Timer(Sender: TObject);
+begin
+
+end;
+
+procedure TForm1.ZhidingClick(Sender: TObject);
 begin
 
 end;

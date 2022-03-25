@@ -24,7 +24,7 @@ object Form1: TForm1
         Height = 54
         Top = 520
         Width = 109
-        Caption = '开始'
+        Caption = '开始所有账号'
         OnClick = Button1Click
         TabOrder = 0
       end
@@ -55,7 +55,7 @@ object Form1: TForm1
         Height = 45
         Top = 501
         Width = 80
-        Caption = 'Button3'
+        Caption = '测试按钮'
         OnClick = Button3Click
         TabOrder = 2
       end
@@ -83,6 +83,48 @@ object Form1: TForm1
         Width = 12
         Caption = '秒'
         ParentColor = False
+      end
+      object Label5: TLabel
+        Left = 655
+        Height = 17
+        Top = 144
+        Width = 72
+        Caption = '开发者工具：'
+        ParentColor = False
+      end
+      object Label6: TLabel
+        Left = 664
+        Height = 17
+        Top = 184
+        Width = 60
+        Caption = '指定运行第'
+        ParentColor = False
+      end
+      object Edit1: TEdit
+        Left = 738
+        Height = 25
+        Top = 180
+        Width = 48
+        NumbersOnly = True
+        TabOrder = 4
+        Text = '0'
+      end
+      object Label7: TLabel
+        Left = 800
+        Height = 17
+        Top = 184
+        Width = 36
+        Caption = '个账号'
+        ParentColor = False
+      end
+      object Zhiding: TButton
+        Left = 936
+        Height = 40
+        Top = 175
+        Width = 89
+        Caption = '指定开始'
+        OnClick = ZhidingClick
+        TabOrder = 5
       end
     end
     object TabSheet2: TTabSheet

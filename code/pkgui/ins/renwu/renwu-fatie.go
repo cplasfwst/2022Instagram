@@ -22,6 +22,11 @@ func Renwu_Fatie(data sync.Map) chromedp.Tasks {
 
 func Fa_First(data sync.Map) chromedp.ActionFunc {
 	return func(ctx context.Context) (err error) {
+		log.Println("进来了任务")
+		//先去主页
+		//留空先
+		//检查是否违规
+		CheckWeigui(data)
 		//寻找发动态按钮#react-root > section > nav > div._8MQSO.Cx7Bp > div > div > div.ctQZg.KtFt3 > div > div:nth-child(3)
 		chromedp.Click(`div[class="J5g42"] > div:nth-child(3)`, chromedp.ByQuery).Do(ctx)
 		//获取本机路径
@@ -49,9 +54,12 @@ func Fa_First(data sync.Map) chromedp.ActionFunc {
 		//点击缩放图片(不缩放会造成继续无法点击) !!!注意，点击事件要配合chromedp.ByQuery，不然无法点击
 		chromedp.WaitVisible(`div[class="pbNvD          "]`,
 			chromedp.NodeVisible).Do(ctx)
-		chromedp.Click(`body > div.RnEpo.gpWnf.Yx5HN > div.pbNvD > div > div > div > div.uYzeu > div._C8iK > div > div > div > div.qF0y9.Igw0E.IwRSH.eGOV_._4EzTm.bkEs3.soMvl.JI_ht.DhRcB.O1flK.D8xaz.fm1AK > div > div:nth-child(2) > div > button`,
-			chromedp.ByQuery).Do(ctx)
-		time.Sleep(time.Second * 1)
+		//document.querySelector("body > div.RnEpo.gpWnf.Yx5HN > div.pbNvD > div > div > div > div.uYzeu > div._C8iK > div > div > div > div.qF0y9.Igw0E.IwRSH.eGOV_._4EzTm.bkEs3.soMvl.JI_ht.DhRcB.O1flK.D8xaz.fm1AK > div > div:nth-child(2) > div > button")
+		//chromedp.Click(`body > div.RnEpo.gpWnf.Yx5HN > div.pbNvD > div > div > div > div.uYzeu > div._C8iK > div > div > div > div.qF0y9.Igw0E.IwRSH.eGOV_._4EzTm.bkEs3.soMvl.JI_ht.DhRcB.O1flK.D8xaz.fm1AK > div > div:nth-child(2) > div > button`,
+		//	chromedp.ByQuery).Do(ctx)
+		chromedp.Click(`document.querySelector("body > div.RnEpo.gpWnf.Yx5HN > div.pbNvD > div > div > div > div.uYzeu > div._C8iK > div > div > div > div.qF0y9.Igw0E.IwRSH.eGOV_._4EzTm.bkEs3.soMvl.JI_ht.DhRcB.O1flK.D8xaz.fm1AK > div > div:nth-child(2) > div > button")`,
+			chromedp.ByJSPath).Do(ctx)
+		time.Sleep(time.Second * 5)
 		chromedp.Click(`body > div.RnEpo.gpWnf.Yx5HN > div.pbNvD > div > div > div > div.uYzeu > div._C8iK > div > div > div > div.qF0y9.Igw0E.IwRSH.eGOV_._4EzTm.bkEs3.soMvl.JI_ht.DhRcB.O1flK.D8xaz.fm1AK > div > div.qF0y9.Igw0E.IwRSH.eGOV_._4EzTm.lC6p0.HVWg4 > div > button:nth-child(3)`, chromedp.ByQuery).Do(ctx)
 		//data["INSzhuangtai"] = "已经点击完缩放图片"
 		data.Store("INSzhuangtai", "已经点击完缩放图片")
@@ -61,8 +69,9 @@ func Fa_First(data sync.Map) chromedp.ActionFunc {
 		chromedp.WaitVisible(`body > div.RnEpo.gpWnf.Yx5HN`, chromedp.NodeVisible).Do(ctx)
 		//data["INSzhuangtai"] = "准备点击继续"
 		data.Store("INSzhuangtai", "准备点击继续")
+
 		chromedp.Click(`body > div.RnEpo.gpWnf.Yx5HN > div.pbNvD > div > div > div > div.qF0y9.Igw0E.IwRSH.eGOV_._4EzTm > div > div > div.WaOAr._8E02J > div > button`, chromedp.ByQuery).Do(ctx)
-		fmt.Println("已经点击继续")
+		data.Store("INSzhuangtai", "已经点击继续111")
 		//选择渲染方式
 		//暂时留空用原图
 
@@ -77,7 +86,6 @@ func Fa_First(data sync.Map) chromedp.ActionFunc {
 		//等待定位条出现点击分享按钮
 		chromedp.WaitVisible(`input[name="creation-location-input"]`, chromedp.NodeVisible).Do(ctx)
 		chromedp.Click(`div.WaOAr._8E02J > div > button`, chromedp.ByQueryAll).Do(ctx)
-		//data["INSzhuangtai"] = "输入文本完成,并且已经点击分享按钮"
 		data.Store("INSzhuangtai", "输入文本完成,并且已经点击分享按钮")
 		fmt.Println("已经点击分享按钮")
 		//等待分享完成

@@ -11,6 +11,7 @@ import (
 	"io/ioutil"
 	"log"
 	"os"
+	"strconv"
 	"strings"
 	"sync"
 	"time"
@@ -44,6 +45,9 @@ func loginIns(data sync.Map) chromedp.Tasks {
 
 		//1,打开INS
 		chromedp.Navigate("https://www.instagram.com/accounts/login/"),
+
+		//1.1检查是否违规了
+		CheckWeigui(data),
 
 		//2,检查是否登陆
 		checkLoginStatus(data),
@@ -168,6 +172,7 @@ func loadCookies(data sync.Map) chromedp.ActionFunc {
 
 func checkLoginStatus(data sync.Map) chromedp.ActionFunc {
 	return func(ctx context.Context) (err error) {
+		log.Println("进来了检查登陆")
 		var url string
 		if err = chromedp.Evaluate(`window.location.href`, &url).Do(ctx); err != nil {
 			return
@@ -195,6 +200,42 @@ func checkLoginStatus(data sync.Map) chromedp.ActionFunc {
 
 			}
 		}
+
+		return
+	}
+}
+
+//检查是否违规了
+// 加载Cookies
+func CheckWeigui(data sync.Map) chromedp.ActionFunc {
+	return func(ctx context.Context) (err error) {
+		log.Println("进来了违规提示")
+		//chromedp.WaitVisible(`body`,chromedp.ByQuery).Do(ctx)
+		//处理违反事件开始-------------------------------------------------------------------------------------------------
+		//判断是否提示违规
+		var url string
+		if err = chromedp.Evaluate(`window.location.href`, &url).Do(ctx); err != nil {
+			log.Println("出错了")
+			return
+		}
+		//fmt.Println(url)
+		if strings.EqualFold(url, "https://www.instagram.com/challenge/?next=/accounts/login/") {
+			log.Println("提示违规")
+			//data["INSzhuangtai"] = "已经使用cookies登陆"
+			data.Store("INSzhuangtai", "提示违规了，准备点击")
+			read := ins.MapRead(data, "INSweigui")
+			atoi, errwg := strconv.Atoi(read)
+			if errwg != nil {
+				data.Store("INSzhuangtai", "违规转化失败")
+			}
+			weigui := atoi + 1
+			data.Store("INSweigui", weigui)
+			chromedp.Click(`button[class="sqdOP  L3NKy   y3zKF   cB_4K  "]`, chromedp.ByQuery).Do(ctx)
+			time.Sleep(time.Second * 3)
+		} else {
+			log.Println("没有违规提示")
+		}
+		//处理违规事件结束----------------------------------------------------------------------------------------------
 
 		return
 	}
