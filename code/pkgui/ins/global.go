@@ -6,6 +6,9 @@ import "sync"
 var Renwu int
 var Insyanchi int
 
+//控制二次开始不重置用户状态
+var IsUserData = true
+
 //是否显示页面
 var Isheadless bool
 

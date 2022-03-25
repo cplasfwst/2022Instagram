@@ -21,8 +21,11 @@ func (f *TForm1) getGlobal() {
 	//随机帖子话术
 	path := f.Tiezi_huashu.Text()
 	ins.Tiezi_huashu = ins.ReadTiezi(path)
-	//预先加载账号密码文本
-	ins.UserData, _ = ins.ImportuserMap("users.txt")
+	//预先加载账号密码文本(添加了只初始化一次的控制)
+	if ins.IsUserData {
+		ins.UserData, _ = ins.ImportuserMap("users.txt")
+		ins.IsUserData = false
+	}
 	//获取图片数量
 	ins.PictureCount = ins.GetPictureCount()
 	//开启状态更新器
@@ -108,5 +111,7 @@ func (f *TForm1) OnZhidingClick(sender vcl.IObject) {
 	num := f.Zhidingnum.Text()
 	atoi, _ := strconv.Atoi(num)
 
+	fmt.Println("这里是！", ins.UserData[7])
 	go renwu.InsInit(ins.UserData[atoi])
+
 }
