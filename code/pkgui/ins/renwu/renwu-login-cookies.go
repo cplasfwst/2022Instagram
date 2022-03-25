@@ -218,8 +218,8 @@ func CheckWeigui(data sync.Map) chromedp.ActionFunc {
 			log.Println("出错了")
 			return
 		}
-		//fmt.Println(url)
-		if strings.EqualFold(url, "https://www.instagram.com/challenge/?next=/accounts/login/") {
+		//fmt.Println(url)https://www.instagram.com/challenge/?next=/
+		if strings.EqualFold(url, "https://www.instagram.com/challenge/?next=/accounts/login/") || strings.EqualFold(url, "https://www.instagram.com/challenge/?next=/") {
 			log.Println("提示违规")
 			//data["INSzhuangtai"] = "已经使用cookies登陆"
 			data.Store("INSzhuangtai", "提示违规了，准备点击")

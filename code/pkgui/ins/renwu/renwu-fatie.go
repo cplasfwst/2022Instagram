@@ -24,7 +24,7 @@ func Fa_First(data sync.Map) chromedp.ActionFunc {
 	return func(ctx context.Context) (err error) {
 		log.Println("进来了任务")
 		//先去主页
-		//留空先
+		chromedp.Navigate("https://www.instagram.com/").Do(ctx)
 		//检查是否违规
 		CheckWeigui(data)
 		//寻找发动态按钮#react-root > section > nav > div._8MQSO.Cx7Bp > div > div > div.ctQZg.KtFt3 > div > div:nth-child(3)
