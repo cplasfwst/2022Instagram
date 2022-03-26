@@ -239,7 +239,7 @@ func CheckWeigui(data sync.Map) chromedp.ActionFunc {
 			time.Sleep(time.Second * 3)
 		}
 		//处理违规事件结束----------------------------------------------------------------------------------------------
-		//上面的处理比较糟糕，未发现应该如何处理，先加一个卡住发帖的方法:strings.Contains ,Contains是URL里面如果包含有第二个参数 则返回真
+		//上面的处理比较糟糕，未发现应该如何处理，先加一个卡住发帖的方法:strings.Contains ,Contains是URL里面如果包含有第二个参数 则返回真1
 		if strings.Contains(url, "https://www.instagram.com/challenge/?next=/accounts/onetap/") {
 			//log.Println("提示违规")
 			//data["INSzhuangtai"] = "已经使用cookies登陆"
