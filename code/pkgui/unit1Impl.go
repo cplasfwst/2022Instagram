@@ -46,12 +46,12 @@ func (f *TForm1) OnButton1Click(sender vcl.IObject) {
 	//循环查看多少个账号然后启动
 	for i := 0; i < len(ins.UserData); i++ {
 		go renwu.InsInit(ins.UserData[i])
-
-		//if i >= 23 && i < 46 {
+		//time.Sleep(time.Second*5)
+		//if i >= 19 && i < 43 {
 		//	time.Sleep(time.Second * 2)
 		//	go renwu.InsInit(ins.UserData[i])
 		//}
-		//if i >= 46 && i < 63 {
+		//if i >= 43 && i < 63 {
 		//	time.Sleep(time.Second * 2)
 		//	go renwu.InsInit(ins.UserData[i])
 		//}

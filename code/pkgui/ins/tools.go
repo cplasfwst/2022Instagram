@@ -62,6 +62,7 @@ func CountTime(num int, data sync.Map, renwushu int) {
 		CountTime(num-1, data, renwushu)
 	} else {
 		fmt.Println("倒计时完成")
+		data.Store("INSzhuangtai", "倒计时完成")
 	}
 	return
 }

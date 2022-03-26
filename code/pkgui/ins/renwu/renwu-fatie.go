@@ -22,11 +22,13 @@ func Renwu_Fatie(data sync.Map) chromedp.Tasks {
 
 func Fa_First(data sync.Map) chromedp.ActionFunc {
 	return func(ctx context.Context) (err error) {
-		log.Println("进来了任务")
+		log.Println(ins.MapRead(data, "INSzhanghao"), "进来了任务")
+		data.Store("INSzhuangtai", "进来了任务")
 		//先去主页
 		chromedp.Navigate("https://www.instagram.com/").Do(ctx)
 		//检查是否违规
-		CheckWeigui(data)
+		//BUG处理！！！！！！！！！！chromedp.ActionFunc里面不能运行chromedp.ActionFunc！！！！！！！（试试加个.do(ctx)！！）
+		CheckWeigui(data).Do(ctx)
 		//寻找发动态按钮#react-root > section > nav > div._8MQSO.Cx7Bp > div > div > div.ctQZg.KtFt3 > div > div:nth-child(3)
 		chromedp.Click(`div[class="J5g42"] > div:nth-child(3)`, chromedp.ByQuery).Do(ctx)
 		//获取本机路径
@@ -37,7 +39,7 @@ func Fa_First(data sync.Map) chromedp.ActionFunc {
 		//itoa将INT转string，获取图片文件的总数量，然后获取一个随机数，对应图片名字
 		filepath := []string{wd + `/data/jpg/` + strconv.Itoa(ins.GetRandNum(ins.PictureCount)) + ".jpg"}
 		//filepath := wd + `/data/jpg/` + strconv.Itoa(ins.GetRandNum(ins.PictureCount)) + ".jpg"
-		fmt.Println("正在选择图片2", filepath)
+		fmt.Println(ins.MapRead(data, "INSzhanghao"), "正在选择图片2", filepath)
 		//上传图片(总结：WaitVisible是界面看到的东西)
 		chromedp.WaitVisible(`h2[class="_7UhW9      x-6xq  yUEEX    KV-D4          uL8Hv     l4b0S    "]`, chromedp.NodeVisible).Do(ctx)
 		//注意，这里上传图片一定要Byquery

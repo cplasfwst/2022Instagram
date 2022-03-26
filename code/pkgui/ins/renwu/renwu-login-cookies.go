@@ -193,9 +193,10 @@ func checkLoginStatus(data sync.Map) chromedp.ActionFunc {
 			renwushu := 0
 			for true {
 				//随机延迟一下账号
-				time.Sleep(time.Second * time.Duration(ins.GetRandNum(10)))
-				err := chromedp.Run(ctx, Renwu_Fatie(data))
-				if err != nil {
+				data.Store("INSzhuangtai", "准备开始第二轮任务")
+				//修改为err2看看是否卡住在完成一轮任务
+				err2 := chromedp.Run(ctx, Renwu_Fatie(data))
+				if err2 != nil {
 					fmt.Println("check检查完是否有cookies评论错误", err)
 				}
 				renwushu++
@@ -212,8 +213,9 @@ func checkLoginStatus(data sync.Map) chromedp.ActionFunc {
 // 加载Cookies
 func CheckWeigui(data sync.Map) chromedp.ActionFunc {
 	return func(ctx context.Context) (err error) {
-		log.Println("进来了违规提示")
+		log.Println(ins.MapRead(data, "INSzhanghao"), "进来了违规提示")
 		//chromedp.WaitVisible(`body`,chromedp.ByQuery).Do(ctx)
+		time.Sleep(time.Second * 1)
 		//处理违反事件开始-------------------------------------------------------------------------------------------------
 		//判断是否提示违规
 		var url string
@@ -235,10 +237,23 @@ func CheckWeigui(data sync.Map) chromedp.ActionFunc {
 			data.Store("INSweigui", weigui)
 			chromedp.Click(`button[class="sqdOP  L3NKy   y3zKF   cB_4K  "]`, chromedp.ByQuery).Do(ctx)
 			time.Sleep(time.Second * 3)
-		} else {
-			log.Println("没有违规提示")
 		}
 		//处理违规事件结束----------------------------------------------------------------------------------------------
+		//上面的处理比较糟糕，未发现应该如何处理，先加一个卡住发帖的方法:strings.Contains ,Contains是URL里面如果包含有第二个参数 则返回真
+		if strings.Contains(url, "https://www.instagram.com/challenge/?next=/accounts/onetap/") {
+			//log.Println("提示违规")
+			//data["INSzhuangtai"] = "已经使用cookies登陆"
+			data.Store("INSzhuangtai", "发帖违规了2，准备点击")
+			read2 := ins.MapRead(data, "INSweigui")
+			atoi, errwg := strconv.Atoi(read2)
+			if errwg != nil {
+				data.Store("INSzhuangtai", "违规转化失败")
+			}
+			weigui := atoi + 1
+			data.Store("INSweigui", weigui)
+			chromedp.Click(`button[class="sqdOP  L3NKy   y3zKF   cB_4K  "]`, chromedp.ByQuery).Do(ctx)
+			time.Sleep(time.Second * 3)
+		}
 
 		return
 	}
