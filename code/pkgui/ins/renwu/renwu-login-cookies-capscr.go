@@ -61,9 +61,10 @@ func loginIns(data sync.Map) chromedp.Tasks {
 		//chromedp.Click(`#react-root > section > main > div > div > div > section > div > button`, chromedp.ByID),
 		//chromedp.Click(`#react-root > div > div > section > main > div > div > div > section > div > button`, chromedp.ByID),
 		//chromedp.Click(`.sqdOP  L3NKy   y3zKF     `, chromedp.NodeVisible),
+		//因为账号密码登陆，再次检测是否违规，因为不存在保存按钮
+		//CheckWeigui(data),
 		//点击保存
 		chromedp.Click(`button[class="sqdOP  L3NKy   y3zKF     "]`, chromedp.ByQuery),
-		//等待进入主页
 		//等待进入主页
 		//chromedp.WaitVisible(`a[class="gmFkV"]`,chromedp.ByQuery).Do(ctx)
 		//允许通知权限这个位置导致读取cookies出错
@@ -72,7 +73,6 @@ func loginIns(data sync.Map) chromedp.Tasks {
 
 		//打开通知
 		//chromedp.Click(`body > div.RnEpo.Yx5HN > div > div > div > div.mt3GC > button.aOOlW.bIiDR`,chromedp.ByQuery),
-
 		//保存登陆信息
 		saveCookies(data),
 	}
@@ -147,6 +147,7 @@ func loadCookies(data sync.Map) chromedp.ActionFunc {
 		// 如果cookies临时文件不存在则直接跳过
 		if _, _err := os.Stat(wd + "/data/cookies/" + ins.MapRead(data, "cookies")); os.IsNotExist(_err) {
 			fmt.Println("不存在缓存文件")
+			data.Store("INSzhuangtai", "不存在缓存文件")
 			return
 		}
 
@@ -185,6 +186,8 @@ func checkLoginStatus(data sync.Map) chromedp.ActionFunc {
 		//}
 		//利用网址等值判断
 		//fmt.Println(url)
+		//添加违规检测在这里试试
+
 		if strings.EqualFold(url, "https://www.instagram.com/") {
 			log.Println("已经使用cookies登陆lele")
 			//data["INSzhuangtai"] = "已经使用cookies登陆"
@@ -204,7 +207,6 @@ func checkLoginStatus(data sync.Map) chromedp.ActionFunc {
 
 			}
 		}
-
 		return
 	}
 }
@@ -214,8 +216,11 @@ func checkLoginStatus(data sync.Map) chromedp.ActionFunc {
 func CheckWeigui(data sync.Map) chromedp.ActionFunc {
 	return func(ctx context.Context) (err error) {
 		log.Println(ins.MapRead(data, "INSzhanghao"), "进来了违规提示")
-		//chromedp.WaitVisible(`body`,chromedp.ByQuery).Do(ctx)
-		time.Sleep(time.Second * 1)
+		//chromedp.WaitVisible(`<body>`,chromedp.NodeVisible).Do(ctx)  注意NodeVisible有问题单body不行要加<>，可能要全名
+		//time.Sleep(time.Second * 3)
+		//fmt.Println("等待完成")
+		//time.Sleep(time.Second * 15)
+		//chromedp.WaitNotPresent()
 		//处理违反事件开始-------------------------------------------------------------------------------------------------
 		//判断是否提示违规
 		var url string
@@ -225,9 +230,10 @@ func CheckWeigui(data sync.Map) chromedp.ActionFunc {
 		}
 		//fmt.Println(url)https://www.instagram.com/challenge/?next=/
 		if strings.EqualFold(url, "https://www.instagram.com/challenge/?next=/accounts/login/") || strings.EqualFold(url, "https://www.instagram.com/challenge/?next=/") {
-			log.Println("提示违规")
 			//data["INSzhuangtai"] = "已经使用cookies登陆"
 			data.Store("INSzhuangtai", "提示违规了，准备点击")
+			//放在这里截图测试一下
+			Capsrc(data).Do(ctx)
 			read := ins.MapRead(data, "INSweigui")
 			atoi, errwg := strconv.Atoi(read)
 			if errwg != nil {
@@ -243,6 +249,8 @@ func CheckWeigui(data sync.Map) chromedp.ActionFunc {
 		if strings.Contains(url, "https://www.instagram.com/challenge/?next=/accounts/onetap/") {
 			//log.Println("提示违规")
 			//data["INSzhuangtai"] = "已经使用cookies登陆"
+			//放在这里截图测试一下
+			Capsrc(data).Do(ctx)
 			data.Store("INSzhuangtai", "发帖违规了2，准备点击")
 			read2 := ins.MapRead(data, "INSweigui")
 			atoi, errwg := strconv.Atoi(read2)
@@ -253,6 +261,31 @@ func CheckWeigui(data sync.Map) chromedp.ActionFunc {
 			data.Store("INSweigui", weigui)
 			chromedp.Click(`button[class="sqdOP  L3NKy   y3zKF   cB_4K  "]`, chromedp.ByQuery).Do(ctx)
 			time.Sleep(time.Second * 3)
+		}
+
+		return
+	}
+}
+
+//整个网页截图
+func Capsrc(data sync.Map) chromedp.ActionFunc {
+	return func(ctx context.Context) (err error) {
+		//先创建一个文件缓存
+		var b1 []byte
+		wd, err := os.Getwd()
+		if err != nil {
+			log.Println(err)
+		}
+
+		//截图开始
+		chromedp.CaptureScreenshot(&b1).Do(ctx)
+
+		//获取当前账号的名字
+		insName := ins.MapRead(data, "INSzhanghao")
+		myPng := wd + "/data/capImg/" + insName + ".png"
+
+		if err2 := ioutil.WriteFile(myPng, b1, 0777); err != nil {
+			log.Println(err2)
 		}
 
 		return

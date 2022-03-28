@@ -209,6 +209,7 @@ func MapRead(data sync.Map, key string) string {
 	return s
 }
 
+//上一个方法的子方法，可以忽略
 func strval(value interface{}) string {
 	// interface 转 string
 	var key string

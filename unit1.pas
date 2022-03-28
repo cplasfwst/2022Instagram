@@ -16,8 +16,13 @@ type
     Button1: TButton;
     Button2: TButton;
     Button3: TButton;
+    Zhiding12Btn: TButton;
+    Zhiding2: TEdit;
+    Label11: TLabel;
+    Zhiding1: TEdit;
     INSsuijihot: TEdit;
     INSgudinghot: TEdit;
+    Label10: TLabel;
     Label8: TLabel;
     Label9: TLabel;
     Zhiding: TButton;
@@ -46,6 +51,7 @@ type
     procedure IPqiehuanClick(Sender: TObject);
     procedure HostDailiChange(Sender: TObject);
     procedure Timer1Timer(Sender: TObject);
+    procedure Zhiding12BtnClick(Sender: TObject);
     procedure ZhidingClick(Sender: TObject);
     procedure ZhuangTaiTimer(Sender: TObject);
   private
@@ -89,6 +95,11 @@ begin
 end;
 
 procedure TForm1.Timer1Timer(Sender: TObject);
+begin
+
+end;
+
+procedure TForm1.Zhiding12BtnClick(Sender: TObject);
 begin
 
 end;

@@ -85,8 +85,9 @@ func (f *TForm1) OnZhuangTaiTimer(sender vcl.IObject) {
 	changdu := len(ins.UserData)
 	f.INSzhuangtai.SetRowCount(int32(changdu) + 1)
 	for i := 0; i < changdu; i++ {
-		f.INSzhuangtai.EditorTextChanged(0, int32(i+1), ins.MapRead(ins.UserData[i], "INSzhanghao"))
-		f.INSzhuangtai.EditorTextChanged(1, int32(i+1), ins.MapRead(ins.UserData[i], "INSzhuangtai"))
+		f.INSzhuangtai.EditorTextChanged(0, int32(i+1), strconv.Itoa(i))
+		f.INSzhuangtai.EditorTextChanged(1, int32(i+1), ins.MapRead(ins.UserData[i], "INSzhanghao"))
+		f.INSzhuangtai.EditorTextChanged(2, int32(i+1), ins.MapRead(ins.UserData[i], "INSzhuangtai"))
 	}
 
 }
@@ -113,5 +114,20 @@ func (f *TForm1) OnZhidingClick(sender vcl.IObject) {
 
 	fmt.Println("这里是！", ins.UserData[7])
 	go renwu.InsInit(ins.UserData[atoi])
+
+}
+
+//指定运行第X到X个账号
+func (f *TForm1) OnZhiding12BtnClick(sender vcl.IObject) {
+	f.getGlobal()
+	num1 := f.Zhiding1.Text()
+	num2 := f.Zhiding2.Text()
+	atoi1, _ := strconv.Atoi(num1)
+	atoi2, _ := strconv.Atoi(num2)
+	//geshu := atoi2 - atoi1
+
+	for i := atoi1; i <= atoi2; i++ {
+		go renwu.InsInit(ins.UserData[i])
+	}
 
 }

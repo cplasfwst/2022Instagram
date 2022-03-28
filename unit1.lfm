@@ -33,19 +33,23 @@ object Form1: TForm1
         Height = 472
         Top = 0
         Width = 636
-        ColCount = 2
+        ColCount = 3
         RowCount = 1
         TabOrder = 1
         ColWidths = (
-          134
-          494
+          42
+          197
+          392
         )
         Cells = (
-          2
+          3
           0
           0
-          '账号名称'
+          '序号'
           1
+          0
+          '账号'
+          2
           0
           '账号状态'
         )
@@ -125,6 +129,47 @@ object Form1: TForm1
         Caption = '指定开始'
         OnClick = ZhidingClick
         TabOrder = 5
+      end
+      object Label10: TLabel
+        Left = 661
+        Height = 17
+        Top = 253
+        Width = 36
+        Caption = '运行：'
+        ParentColor = False
+      end
+      object Zhiding1: TEdit
+        Left = 696
+        Height = 25
+        Top = 248
+        Width = 56
+        TabOrder = 6
+        Text = '0'
+      end
+      object Label11: TLabel
+        Left = 760
+        Height = 17
+        Top = 254
+        Width = 12
+        Caption = '到'
+        ParentColor = False
+      end
+      object Zhiding2: TEdit
+        Left = 787
+        Height = 25
+        Top = 248
+        Width = 65
+        TabOrder = 7
+        Text = '10'
+      end
+      object Zhiding12Btn: TButton
+        Left = 936
+        Height = 37
+        Top = 244
+        Width = 92
+        Caption = '指定批数开始'
+        OnClick = Zhiding12BtnClick
+        TabOrder = 8
       end
     end
     object TabSheet2: TTabSheet

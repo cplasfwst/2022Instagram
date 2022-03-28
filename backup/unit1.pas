@@ -16,8 +16,13 @@ type
     Button1: TButton;
     Button2: TButton;
     Button3: TButton;
+    Zhiding12Btn: TButton;
+    Zhiding2: TEdit;
+    Label11: TLabel;
+    Zhiding1: TEdit;
     INSsuijihot: TEdit;
     INSgudinghot: TEdit;
+    Label10: TLabel;
     Label8: TLabel;
     Label9: TLabel;
     Zhiding: TButton;
