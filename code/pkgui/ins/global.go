@@ -4,7 +4,8 @@ import "sync"
 
 //完成任务总数和倒计时
 var Renwu int
-var Insyanchi int
+var InsyanchiMin int
+var InsyanchiMax int
 
 //控制二次开始不重置用户状态
 var IsUserData = true

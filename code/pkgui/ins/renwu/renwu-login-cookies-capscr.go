@@ -129,7 +129,8 @@ func saveCookies(data sync.Map) chromedp.ActionFunc {
 				fmt.Println("check检查完是否有cookies评论错误", err)
 			}
 			renwushu++
-			ins.CountTime(ins.Insyanchi, data, renwushu)
+			yanchi := ins.GetRandLMNum(ins.InsyanchiMin, ins.InsyanchiMax)
+			ins.CountTime(yanchi, data, renwushu)
 		}
 
 		return
@@ -203,8 +204,8 @@ func checkLoginStatus(data sync.Map) chromedp.ActionFunc {
 					fmt.Println("check检查完是否有cookies评论错误", err)
 				}
 				renwushu++
-				ins.CountTime(ins.Insyanchi, data, renwushu)
-
+				yanchi := ins.GetRandLMNum(ins.InsyanchiMin, ins.InsyanchiMax)
+				ins.CountTime(yanchi, data, renwushu)
 			}
 		}
 		return

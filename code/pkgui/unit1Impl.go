@@ -14,8 +14,10 @@ type TForm1Fields struct {
 
 func (f *TForm1) getGlobal() {
 	//获取INS任务延迟数
-	atoi, _ := strconv.Atoi(f.Insyanchi.Text())
-	ins.Insyanchi = atoi
+	atoi, _ := strconv.Atoi(f.InsyanchiMin.Text())
+	ins.InsyanchiMin = atoi
+	atoi2, _ := strconv.Atoi(f.InsyanchiMax.Text())
+	ins.InsyanchiMax = atoi2
 	//是否隐藏浏览器
 	ins.Isheadless = f.Isheadless.Checked()
 	//随机帖子话术

@@ -51,6 +51,7 @@ type
     procedure IPqiehuanClick(Sender: TObject);
     procedure HostDailiChange(Sender: TObject);
     procedure Timer1Timer(Sender: TObject);
+    procedure Zhiding12BtnClick(Sender: TObject);
     procedure ZhidingClick(Sender: TObject);
     procedure ZhuangTaiTimer(Sender: TObject);
   private
@@ -94,6 +95,11 @@ begin
 end;
 
 procedure TForm1.Timer1Timer(Sender: TObject);
+begin
+
+end;
+
+procedure TForm1.Zhiding12BtnClick(Sender: TObject);
 begin
 
 end;
