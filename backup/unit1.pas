@@ -16,6 +16,8 @@ type
     Button1: TButton;
     Button2: TButton;
     Button3: TButton;
+    InsyanchiMax: TEdit;
+    Label12: TLabel;
     Zhiding12Btn: TButton;
     Zhiding2: TEdit;
     Label11: TLabel;
@@ -29,7 +31,7 @@ type
     Zhidingnum: TEdit;
     IPqiehuan: TButton;
     CheckBox1: TCheckBox;
-    Insyanchi: TEdit;
+    InsyanchiMin: TEdit;
     Isheadless: TCheckBox;
     INSzhuangtai: TStringGrid;
     Label1: TLabel;

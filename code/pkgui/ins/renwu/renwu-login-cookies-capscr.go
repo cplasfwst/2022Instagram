@@ -196,16 +196,26 @@ func checkLoginStatus(data sync.Map) chromedp.ActionFunc {
 			//开始循环任务，先定义一个账号个人完成任务数
 			renwushu := 0
 			for true {
-				//随机延迟一下账号
-				data.Store("INSzhuangtai", "准备开始第二轮任务")
-				//修改为err2看看是否卡住在完成一轮任务
-				err2 := chromedp.Run(ctx, Renwu_Fatie(data))
+				////随机延迟一下账号
+				//data.Store("INSzhuangtai", "准备开始第二轮任务")
+				////修改为err2看看是否卡住在完成一轮任务
+				//err2 := chromedp.Run(ctx, Renwu_Fatie(data))
+				//if err2 != nil {
+				//	fmt.Println("check检查完是否有cookies评论错误", err)
+				//}
+				//renwushu++
+				//yanchi := ins.GetRandLMNum(ins.InsyanchiMin, ins.InsyanchiMax)
+				//ins.CountTime(yanchi, data, renwushu)
+
+				err2 := chromedp.Run(ctx, Renwu_Yanghao(data))
 				if err2 != nil {
 					fmt.Println("check检查完是否有cookies评论错误", err)
 				}
+				fmt.Println("退出养号666")
 				renwushu++
 				yanchi := ins.GetRandLMNum(ins.InsyanchiMin, ins.InsyanchiMax)
 				ins.CountTime(yanchi, data, renwushu)
+
 			}
 		}
 		return
@@ -216,7 +226,7 @@ func checkLoginStatus(data sync.Map) chromedp.ActionFunc {
 // 加载Cookies
 func CheckWeigui(data sync.Map) chromedp.ActionFunc {
 	return func(ctx context.Context) (err error) {
-		log.Println(ins.MapRead(data, "INSzhanghao"), "进来了违规提示")
+		log.Println(ins.MapRead(data, "INSzhanghao"), "进来了违规检查")
 		//chromedp.WaitVisible(`<body>`,chromedp.NodeVisible).Do(ctx)  注意NodeVisible有问题单body不行要加<>，可能要全名
 		//time.Sleep(time.Second * 3)
 		//fmt.Println("等待完成")

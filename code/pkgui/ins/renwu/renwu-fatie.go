@@ -22,7 +22,7 @@ func Renwu_Fatie(data sync.Map) chromedp.Tasks {
 
 func Fa_First(data sync.Map) chromedp.ActionFunc {
 	return func(ctx context.Context) (err error) {
-		log.Println(ins.MapRead(data, "INSzhanghao"), "进来了任务")
+		log.Println(ins.MapRead(data, "INSzhanghao"), "进来了发帖")
 		data.Store("INSzhuangtai", "进来了任务")
 		//先去主页
 		chromedp.Navigate("https://www.instagram.com/").Do(ctx)

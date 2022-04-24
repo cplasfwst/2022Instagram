@@ -207,6 +207,8 @@ object Form1: TForm1
         Top = 22
         Width = 34
         Caption = '是'
+        Checked = True
+        State = cbChecked
         TabOrder = 0
       end
       object Label4: TLabel
